@@ -28,4 +28,13 @@ describe('Your code for binSearch', function() {
       expect(binSearch([m, m + 1], m)).to.equal(true);
       expect(binSearch([m, m + 1], m + 0.5)).to.equal(false);
    });
+   it('correctly finds middle element', function() {
+      var arr = [Math.random(), Math.random() + 1, Math.random() + 2];
+      expect(binSearch(arr, arr[1])).to.equal(true);
+   });
+   it('works in cases where multiple elements are equal', function() {
+      var m = Math.random() * 10;
+      expect(binSearch([m - 3, m, m, m + 3], m)).to.equal(true);
+      expect(binSearch([m - 3, m, m, m + 3], m + 1)).to.equal(false);
+   });
 });
