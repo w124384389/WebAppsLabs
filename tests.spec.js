@@ -37,17 +37,21 @@ describe('Your code for binSearch', function() {
       expect(binSearch([m - 3, m, m, m + 3], m)).to.equal(true);
       expect(binSearch([m - 3, m, m, m + 3], m + 1)).to.equal(false);
    });
-   it('grows roughly logarithmically with array length', function() {
-      var Ns = [1, 100, 1000, 10000, 100000, 1000000];
-      var reps = 100;
+   it('runs in reasonable time for large arrays (max 10 seconds)', function(done) {
+      this.timeout(10 * 1000);  // 10 seconds
+      var Ns = [100000, 300000];
+      // Runs 50000 repetitions of searching for a non-existent value on
+      // two arrays of sizes 100k and 300k.
+      // Linear time searches would be too slow.
+      var reps = 50000;
       var times = Ns.map(function(N) {
          var arr = [];
          for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
-         var start = new Date();
+         arr.sort();
          for (var rep = 0; rep < reps; rep += 1) {
             binSearch(arr, Math.random());
          }
-         return (new Date() - start) / reps;
       });
+      done();
    });
 });
