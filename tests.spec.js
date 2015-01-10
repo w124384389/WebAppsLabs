@@ -56,19 +56,17 @@ describe('Your code for binarySearch', function() {
    });
    it('runs in reasonable time for large arrays (max 10 seconds)', function(done) {
       this.timeout(10 * 1000);  // 10 seconds
-      var Ns = [100000, 300000];
+      var N = 100000;
       // Runs 50000 repetitions of searching for a non-existent value on
-      // two arrays of sizes 100k and 300k.
+      // an array of size 100k
       // Linear time searches would be too slow.
       var reps = 50000;
-      var times = Ns.map(function(N) {
-         var arr = [];
-         for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
-         arr.sort();
-         for (var rep = 0; rep < reps; rep += 1) {
-            binarySearch(arr, Math.random());
-         }
-      });
+      var arr = [];
+      for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
+      arr.sort();
+      for (var rep = 0; rep < reps; rep += 1) {
+         binarySearch(arr, Math.random());
+      }
       done();
    });
 });
