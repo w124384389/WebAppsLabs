@@ -120,3 +120,41 @@ describe('Your code for countTags', function() {
       expect(countTags(o)[otherTag]).to.equal(2);
    });
 });
+describe('Your code for extractHashTags', function() {
+   it('loads', function() {
+
+   });
+   it('defines a extractHashTags function', function() {
+      expect(extractHashTags).to.exist();
+      expect(extractHashTags).to.be.a('function');
+   });
+   it('returns an array', function() {
+      expect(extractHashTags('')).to.be.an('array');
+   });
+   it('returns empty array if no hashtags', function() {
+      expect(extractHashTags('A plain text string').length).to.equal(0);
+      expect(extractHashTags('No hashtag # here').length).to.equal(0);
+      expect(extractHashTags('Numbered not valid either #12').length).to.equal(0);
+   });
+   it('finds a hashtag at end of line', function() {
+      expect(extractHashTags('A plain text string with #one')).to.deep.equal(['one']);
+      expect(extractHashTags('ok if next to others#likeso').length).to.deep.equal(['likeso']);
+   });
+   it('finds a hashtag at middle', function() {
+      expect(extractHashTags('A plain text #one string with')).to.deep.equal(['one']);
+      expect(extractHashTags('ok if next#likeso to others').length).to.deep.equal(['likeso']);
+   });
+   it('finds a hashtag at beginning', function() {
+      expect(extractHashTags('#one A plain text string with')).to.deep.equal(['one']);
+      expect(extractHashTags('#likeso-a dash can separate things').length).to.deep.equal(['likeso']);
+   });
+   it('finds multiple hashtags', function() {
+      expect(extractHashTags('A plain text string with #one #two').sort()).to.deep.equal(['one', 'two']);
+      expect(extractHashTags('Back to back #one#two').sort()).to.deep.equal(['one', 'two']);
+      expect(extractHashTags('Spaced #one apart #two').sort()).to.deep.equal(['one', 'two']);
+   });
+   it('ignores duplicates', function() {
+      expect(extractHashTags('A plain #one text#two string with #one #two').sort())
+         .to.deep.equal(['one', 'two']);
+   });
+});
