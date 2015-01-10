@@ -138,15 +138,15 @@ describe('Your code for extractHashTags', function() {
    });
    it('finds a hashtag at end of line', function() {
       expect(extractHashTags('A plain text string with #one')).to.deep.equal(['one']);
-      expect(extractHashTags('ok if next to others#likeso').length).to.deep.equal(['likeso']);
+      expect(extractHashTags('ok if next to others#likeso')).to.deep.equal(['likeso']);
    });
    it('finds a hashtag at middle', function() {
       expect(extractHashTags('A plain text #one string with')).to.deep.equal(['one']);
-      expect(extractHashTags('ok if next#likeso to others').length).to.deep.equal(['likeso']);
+      expect(extractHashTags('ok if next#likeso to others')).to.deep.equal(['likeso']);
    });
    it('finds a hashtag at beginning', function() {
       expect(extractHashTags('#one A plain text string with')).to.deep.equal(['one']);
-      expect(extractHashTags('#likeso-a dash can separate things').length).to.deep.equal(['likeso']);
+      expect(extractHashTags('#likeso-a dash can separate things')).to.deep.equal(['likeso']);
    });
    it('finds multiple hashtags', function() {
       expect(extractHashTags('A plain text string with #one #two').sort()).to.deep.equal(['one', 'two']);
