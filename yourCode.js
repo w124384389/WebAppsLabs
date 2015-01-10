@@ -4,7 +4,9 @@
  */
 
 /*
- * The function binSearch is meant to perform binary search
+ * BINARY SEARCH
+ *
+ * The function `binarySearch` is meant to perform binary search
  *
  * You may assume your function will be called with two arguments:
  *    - An array `arr` that you may assume is a possibly empty array of numbers
@@ -37,7 +39,7 @@
  * not. You can use a `return` from within your `while` loop if that is appropriate
  * for example.
  */
-var binSearch = function(arr, val) {
+var binarySearch = function binarySearch(arr, val) {
    var lo, hi, mid;
 
    // You may need to add things here
