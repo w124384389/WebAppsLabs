@@ -52,3 +52,57 @@ var binarySearch = function binarySearch(arr, val) {
 
 };
 
+/*
+ * COUNTING TAGS
+ *
+ * The function countTags will later on become part of our todo-list application.
+ * - The argument `items` is a, possibly empty, Javascript array whose entries are
+ * objects with many properties of which we only care about a property `tags`.
+ * - For every object `o` in the `items` array, `o.tag` is an array of "tags". For
+ * instance, `o.tags` might be `["work", "urgent", "car"]`, indicating that the
+ * corresponding task is work-related, time-sensitive, and requires a car.
+ * - You may assume that `o.tags` has no duplicates in it.
+ * - It is possible that the array of tasks `o.tags` is in fact empty.
+ * - It is possible that `o.tags` is not actually an array. Your function should
+ *   simply ignore it in that case, and move on to the next item. If you look
+ *   through MDN's documentation for Array, you should find a method you can use
+ *   to test if a given value is an array.
+ *
+ * Your function should do the following: Given such an array of items, it should
+ * return an object `tagCounts`. This object should have one key for each tag
+ * encountered. The value for that key should be the number of items that has that
+ * tag in their `o.tags`.
+ *
+ * So your code will need to iterate over the array `items`, and for each item
+ * look into its `tags` property, and increase the counts for the tags encountered
+ * there in the `tagCounts` object, initializing any tags not previously encountered.
+ *
+ * Do not forget to declare any local variables you need to use in your function.
+ */
+var countTags = function countTags(items) {
+   // Declare your local variables here. One was done for you.
+   var tagCounts;
+
+   // Add your code here
+
+
+   return tagCounts;
+};
+
+/*
+ * EXTRACT HASHTAGS
+ *
+ * The function `extractHashTags` attempts to extract hash-tags out of a string.
+ *
+ * It takes as input a string `str`. A "hashtag" would be the hash character `#`
+ * immediately followed by a sequence of one or more letters (a-z, A-Z).
+ *
+ * The function should return a (possibly empty) array of the hashtags present in
+ * the string `str`. For example the string `"Such a nice day! #goSwimming #sunny"`
+ * should return the array `["goSwimming", "sunny"]`.
+ * Your code should take care to avoid duplicates: If a hashtag appears twice, it
+ * should only be included once in the return value.
+ */
+var extractHashTags = function extractHashTags(str) {
+
+};
