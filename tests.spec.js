@@ -37,6 +37,23 @@ describe('Your code for binSearch', function() {
       expect(binSearch([m - 3, m, m, m + 3], m)).to.equal(true);
       expect(binSearch([m - 3, m, m, m + 3], m + 1)).to.equal(false);
    });
+   it('correctly identifies misses in large arrays', function() {
+      var N = 10000, arr = [];
+      for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
+      arr.sort();
+      for (var reps = 0; reps < 50; reps += 1) {
+         expect(binSearch(arr, Math.random())).to.equal(false);
+      }
+   });
+   it('correctly identifies hits in large arrays', function() {
+      var N = 10000, arr = [];
+      for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
+      arr.sort();
+      for (var reps = 0; reps < 50; reps += 1) {
+         expect(binSearch(arr, arr[Math.floor(Math.random() * 8000 + 500])))
+            .to.equal(true);
+      }
+   });
    it('runs in reasonable time for large arrays (max 10 seconds)', function(done) {
       this.timeout(10 * 1000);  // 10 seconds
       var Ns = [100000, 300000];
