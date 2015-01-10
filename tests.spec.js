@@ -70,3 +70,53 @@ describe('Your code for binarySearch', function() {
       done();
    });
 });
+describe('Your code for countTags', function() {
+   function randomString(len) {
+      var arr = [], caseRange, i;
+      for (i = 0; i < len; i += 1) {
+         caseRange = [65, 97][Math.floor(Math.random() * 2)];
+         arr.push(Math.floor(Math.random() * 26) + caseRange);
+      }
+      return String.fromCharCode.apply(String, arr);
+   }
+   it('loads', function() {
+
+   });
+   it('defines a countTags function', function() {
+      expect(countTags).to.exist();
+      expect(countTags).to.be.a('function');
+   });
+   it('returns an object', function() {
+      expect(countTags([])).to.be.an('object');
+   });
+   it('returns no tags for an empty array', function() {
+      expect(Object.keys(countTags([])).length).to.equal(0);
+   });
+   it('works if tags key is not present', function() {
+      expect(function() { countTags([{ foo: '' }]) }).to.not.throw(Error);
+   });
+   it('works if tags is not array', function() {
+      expect(function() { countTags([{ tags: '' }]) }).to.not.throw(Error);
+      expect(Object.keys(countTags([{ tags: '' }])).length).to.equal(0);
+      expect(function() { countTags([{ tags: null }]) }).to.not.throw(Error);
+      expect(Object.keys(countTags([{ tags: null }])).length).to.equal(0);
+   });
+   it('counts a tag if a tag is found', function() {
+      var tag = randomString(7);
+      expect(countTags([{ tags: [tag] }])[tag]).to.equal(1);
+   });
+   it('counts a tag the number of times it is found', function() {
+      var tag = randomString(7);
+      var otherTag = randomString(7);
+      var o = [
+         { tags: [tag, otherTag] },
+         { tags: [tag] },
+         { tags: [otherTag] },
+         { tags: [] },
+         { tags: [tag] }
+      ];
+      expect(Object.keys(countTags(o)).length).to.equal(2);
+      expect(countTags(o)[tag]).to.equal(3);
+      expect(countTags(o)[otherTag]).to.equal(2);
+   });
+});
