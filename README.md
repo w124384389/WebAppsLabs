@@ -34,7 +34,7 @@ not. You can use a `return` from within your `while` loop if that is appropriate
 for example.
 - You should not use `Array`'s `indexOf` and `lastIndexOf` methods. They perform a linear search and will fail the timing tests.
 
-## countingTags
+## countTags
 
 The function countTags will later on become part of our todo-list application.
 
