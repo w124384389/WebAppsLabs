@@ -6,6 +6,13 @@ In this lab you will have to write 3 functions.
 - The tests that will be run are in the file [tests.spec.js](tests.spec.js). You may look at this file for ideas on what tests are being run. Do NOT modify this file.
 - In order to see how your tests are doing, open the [index.html](index.html) file in your browser. It should show you a listing of each test and which ones succeeded, as well as information on the ones that failed. Do NOT modify this file.
 
+## General Advice
+
+- Think about what your function should be doing! Write it out, perhaps in a GitHub issue.
+- Use `console.log` whenever you want to see what the output of something would be. Then loading the `index.html` file should show you this information on the console. Basically, use this as "print" statements. It is a very valuable debugging tool. Sprinkling `console.log` statements all over your function is a great first step.
+- Work in small increments, step by step. Use those `console.log`s to make sure that you get what you would expect at each step.
+- Most solutions fit within 10-15 lines of code. You can have longer code of course, but think about whether you are doing redundant steps.
+
 ## The functions
 
 Here are descriptions for the functions you have to write:
