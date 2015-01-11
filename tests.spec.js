@@ -40,7 +40,7 @@ describe('Your code for binarySearch', function() {
    it('correctly identifies misses in large arrays', function() {
       var N = 10000, arr = [];
       for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
-      arr.sort();
+      arr.sort(function(a, b) { return a - b; });
       for (var reps = 0; reps < 50; reps += 1) {
          expect(binarySearch(arr, Math.random())).to.equal(false);
       }
@@ -48,7 +48,7 @@ describe('Your code for binarySearch', function() {
    it('correctly identifies hits in large arrays', function() {
       var N = 10000, arr = [];
       for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
-      arr.sort();
+      arr.sort(function(a, b) { return a - b; });
       for (var reps = 0; reps < 50; reps += 1) {
          expect(binarySearch(arr, arr[Math.floor(Math.random() * 8000 + 500)]))
             .to.equal(true);
@@ -63,7 +63,7 @@ describe('Your code for binarySearch', function() {
       var reps = 50000;
       var arr = [];
       for (var i = 0; i < N; i += 1) { arr[i] = Math.random(); }
-      arr.sort();
+      arr.sort(function(a, b) { return a - b; });
       for (var rep = 0; rep < reps; rep += 1) {
          binarySearch(arr, Math.random());
       }
