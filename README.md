@@ -6,9 +6,11 @@ In this lab you will have to write 3 functions.
 - The tests that will be run are in the file [tests.spec.js](tests.spec.js). You may look at this file for ideas on what tests are being run. Do NOT modify this file.
 - In order to see how your tests are doing, open the [index.html](index.html) file in your browser. It should show you a listing of each test and which ones succeeded, as well as information on the ones that failed. Do NOT modify this file.
 
+## The functions
+
 Here are descriptions for the functions you have to write:
 
-## binarySearch
+### binarySearch
 
 The function `binarySearch` is meant to perform binary search.
 
@@ -34,7 +36,7 @@ not. You can use a `return` from within your `while` loop if that is appropriate
 for example.
 - You should not use `Array`'s `indexOf` and `lastIndexOf` methods. They perform a linear search and will fail the timing tests.
 
-## countTags
+### countTags
 
 The function countTags will later on become part of our todo-list application.
 
@@ -50,7 +52,7 @@ So your code will need to iterate over the array `items`, and for each item look
 
 Do not forget to declare any local variables you need to use in your function.
 
-## extractHashTags
+### extractHashTags
 
 The function `extractHashTags` attempts to extract hash-tags out of a string.
 
