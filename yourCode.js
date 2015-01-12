@@ -1,6 +1,6 @@
 /*
- * Name 1: YourNameHere
- * Name 2: YourNameHere
+ * Name 1: Chen Wang
+ * Name 2: Douglas Puppio
  */
 
 /*
