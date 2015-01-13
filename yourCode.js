@@ -38,3 +38,14 @@ var countTags = function countTags(items) {
 var extractHashTags = function extractHashTags(str) {
 
 };
+
+/*
+ * To allow node.js to run our tests. DO NOT CHANGE!
+ */
+try {
+   module.exports = {
+      binarySearch: binarySearch,
+      countTags: countTags,
+      extractHashTags: extractHashTags
+   };
+} catch (e) {}
