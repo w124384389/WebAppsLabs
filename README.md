@@ -293,11 +293,15 @@ Here is the interface you must implement (and your tests need to test this):
 - Your code must be creating a `makeMap` function that takes no arguments and creates a new "empty map".
 - The object that `makeMap` returns must contain exactly the following methods, that are used to interface with the map:
 
-    - `has`: Calling`theMap.has(key)` should return a boolean saying if your map has a key that equals the passed argument.
-    - `lookup`: Calling `theMap.lookup(key)` should return the value stored in that key. It should throw an error if the key does not exist.
-    - `add`: Calling `theMap.add(key, value)` should add the key-value pair to the map and return `theMap` (so that calls can be chained). It should throw an error if the key already exists.
-    - `update`: Calling `theMap.update(key, value)` should update the value associated with the key. It should return `theMap` to allow chaining. If the key does not already exist in the map, it should throw an error.
-    - `remove`: Calling `theMap.remove(key)` should remove the pair stored in that key. It should throw an error if the key does not exist in the map.
+    `has`: Calling`theMap.has(key)` should return a boolean saying if your map has a key that equals the passed argument.
+
+    `lookup`: Calling `theMap.lookup(key)` should return the value stored in that key. It should throw an error if the key does not exist.
+
+    `add`: Calling `theMap.add(key, value)` should add the key-value pair to the map and return `theMap` (so that calls can be chained). It should throw an error if the key already exists.
+
+    `update`: Calling `theMap.update(key, value)` should update the value associated with the key. It should return `theMap` to allow chaining. If the key does not already exist in the map, it should throw an error.
+
+    `remove`: Calling `theMap.remove(key)` should remove the pair stored in that key. It should throw an error if the key does not exist in the map.
 
 - You are free to add other local functions that are not exported. But keep them local and do NOT expose them by including them in the returned object.
 - Your methods must make a distinction between "having a key with corresponding value `undefined/null`" and "not having the key at all". Using "`hasOwnProperty" at appropriate places should do this for you. Make sure your tests test for this.
