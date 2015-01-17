@@ -10,13 +10,23 @@ var binarySearch = function binarySearch(arr, val) {
    var lo, hi, mid;
 
    // You may need to add things here
+   lo = 0;
+   hi = arr.length - 1;
 
-   while (false) {     // You should change this with a proper condition
+   while (lo <= hi) {     // You should change this with a proper condition
       // You will need to add things here
+      mid = (lo + hi) / 2 | 0;
+
+      if (arr[mid] < val)
+         lo = mid + 1;
+      else if (arr[mid] > val) 
+         hi = mid -1;
+      else
+         return true;
    }
 
    // You may need to add things here
-
+   return false;
 };
 
 /*
