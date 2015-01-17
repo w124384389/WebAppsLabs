@@ -307,3 +307,23 @@ Here is the interface you must implement (and your tests need to test this):
 - Your methods must make a distinction between "having a key with corresponding value `undefined/null`" and "not having the key at all". Using "`hasOwnProperty" at appropriate places should do this for you. Make sure your tests test for this.
 - The messages for the errors you throw should include in their text enough information to know that it is regarding the "map" structure, which method had problems, and what the key was. This will not be checked in our tests however, we will only test that an error happens.
 - The test file provides you with a function `randomString` that you can use to generate random strings for your tests. It takes as input the length of the resulting string, defaulting to 5.
+
+## Optional Assignment: Collection methods on map structure
+
+This optional assignment will carry some extra credit, but it will require disproportionately more work than the credit it carries. Think of it as a challenge problem.
+
+Should you choose to undertake this part, you should copy the entire map directory into a new directory "mapExtra", then add your extensions to the test and code files there.
+
+This optional assignment asks you to implement collection methods on your map. Here are the methods and what they should do:
+
+`forEach`: Called like so: `theMap.forEach(function(val, key) { ... })`. Calls the function for each key-value pair. Should return `theMap`. Note that in the provided function the first argument must be the value and the second the key.
+
+`map`: Called like so: `theMap.map(function(val, key) { ... })`. For each key-value pair calls the function to obtain a "new value". It returns a new map, that contains the same keys but now associated with these new values. It should keep the old map intact.
+
+`filter`: Called like so: `theMap.filter(function(val, key) { ... })`. It creates a new map that contains only those key-value pairs for which the provided function returns `true`. It should keep the old map intact.
+
+`reduce`: Called like so: `theMap.reduce(function(acc, val, key) { ... }, initValue)`. It should accumulate the results of the function calls in much the same way that the array reduce does.
+
+- You will find the call `Object.keys(anObject)` handy for this most of these questions.
+- Use the above-mentioned `Object.keys` and a normal `for` loop or `forEach` on the resulting array, rather than trying to use `for...in`.
+- You may find it convenient to use the corresponding array collection methods along the way.
