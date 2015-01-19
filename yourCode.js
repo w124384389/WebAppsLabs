@@ -64,7 +64,24 @@ var countTags = function countTags(items) {
  * EXTRACT HASHTAGS
  */
 var extractHashTags = function extractHashTags(str) {
+   var f = [];
+   
+   // Search for hashtags
+   f = str.match(/#([A-Za-z]+)/g);
+   // If doesn't find anything or is empty string
+   if (f == null) return [];
 
+   // Eliminate all the duplicates
+   f = f.filter(function(elem, pos) {
+       return f.indexOf(elem) == pos;
+    });
+
+   // Remove the character '#' from the beginning
+   for (var i = f.length - 1; i >= 0; i--) {
+      f[i] = f[i].replace("#", "");
+   };
+   
+   return f;
 };
 
 /*
