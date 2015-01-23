@@ -4,11 +4,15 @@
  */
 // All your code will go here
 
-var makeStack = function(){
+var makeStack = function() {
+	var stack = [];
 	return {
-		push: function(){},
-		pop: function(){},
-		isEmpty: function(){},
+		push: function(v) {
+		},
+		pop: function() {
+		},
+		isEmpty: function() {
+		},
 	};
 }
 
