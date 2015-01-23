@@ -7,11 +7,18 @@
 var makeStack = function() {
 	var stack = [];
 	return {
-		push: function() {
+		push: function(v) {
+			stack.push(v);
+			return this;
 		},
 		pop: function() {
+			if (this.isEmpty())
+				throw new Error("Attempt to pop from empty stack");
+			else
+				return stack.pop();
 		},
 		isEmpty: function() {
+			return stack.length === 0;
 		},
 	};
 }
