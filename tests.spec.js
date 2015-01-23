@@ -13,4 +13,7 @@ describe('Your code for stacks', function() {
    		expect(function() { makeStack; }).to.not.throw(Error);
 	});
 	// Add more "it" sections below
+   it('actually defines a function makeStack', function() {
+    expect(makeStack).to.be.a('function');
+   } );
 });
