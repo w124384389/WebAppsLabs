@@ -7,7 +7,7 @@
 var makeStack = function() {
 	var stack = [];
 	return {
-		push: function(v) {
+		push: function() {
 		},
 		pop: function() {
 		},
