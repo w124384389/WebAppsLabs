@@ -9,7 +9,7 @@ var makeMap = function() {
    // This object should contain the methods you want to expose:
    var o = {
       has: function(){
-
+         
       },
       lookup: function(){
 
