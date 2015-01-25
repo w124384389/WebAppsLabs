@@ -7,7 +7,24 @@
 var makeMap = function() {
 // All your code will go inside this function
    // This object should contain the methods you want to expose:
-   var o;
+   var o = {
+      has: function(){
+
+      },
+      lookup: function(){
+
+      },
+      add: function(){
+
+      },
+      update: function(){
+
+      },
+      remove: function(){
+
+      },
+
+   };
    // Use this object to store the key-value pairs:
    var storedPairs;
 
@@ -30,3 +47,22 @@ try {
       makeMap: makeMap
    };
 } catch (e) {}
+
+// var makeStack = function() {
+//    var stack = [];
+//    return {
+//       push: function(v) {
+//          stack.push(v);
+//          return this;
+//       },
+//       pop: function() {
+//          if (this.isEmpty())
+//             throw new Error("Attempt to pop from empty stack");
+//          else
+//             return stack.pop();
+//       },
+//       isEmpty: function() {
+//          return stack.length === 0;
+//       },
+//    };
+// }
