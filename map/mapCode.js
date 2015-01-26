@@ -6,27 +6,37 @@
 // Do not change the name of this function
 var makeMap = function() {
 // All your code will go inside this function
+   // Use this object to store the key-value pairs:
+   var storedPairs = {};
+
    // This object should contain the methods you want to expose:
    var o = {
-      has: function(){
+      has: function (key) {
+         return storedPairs.hasOwnProperty(key);
+      },
+      lookup: function(key) {
+         if (!this.has(key)) throw new Error("The Key" + key + "does not exists. Method: lookup.");
          
+         return storedPairs[key];
       },
-      lookup: function(){
-
+      add: function(key, val) {
+         if (this.has(key)) throw new Error("The Key" + key + "already exists. Method: add.");
+         
+         storedPairs[key] = val;
+         return this;
       },
-      add: function(){
-
+      update: function(key, val) {
+         if (!this.has(key)) throw new Error("The Key" + key + "does not exists. Method: update.");
+         
+         storedPairs[key] = val;
+         return this;
       },
-      update: function(){
-
-      },
-      remove: function(){
-
-      },
-
+      remove: function(key){
+         if (!this.has(key)) throw new Error("The Key" + key + "does not exists. Method: remove.");
+         
+         delete storedPairs[key];
+      }
    };
-   // Use this object to store the key-value pairs:
-   var storedPairs;
 
    // Add initialization code here
 
@@ -47,22 +57,3 @@ try {
       makeMap: makeMap
    };
 } catch (e) {}
-
-// var makeStack = function() {
-//    var stack = [];
-//    return {
-//       push: function(v) {
-//          stack.push(v);
-//          return this;
-//       },
-//       pop: function() {
-//          if (this.isEmpty())
-//             throw new Error("Attempt to pop from empty stack");
-//          else
-//             return stack.pop();
-//       },
-//       isEmpty: function() {
-//          return stack.length === 0;
-//       },
-//    };
-// }
