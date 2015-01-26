@@ -35,6 +35,18 @@ var makeMap = function() {
          if (!this.has(key)) throw new Error("The Key" + key + "does not exists. Method: remove.");
          
          delete storedPairs[key];
+      },
+      forEach: function(callback[, thisArg]) {
+         if (typeof callback === 'function') return ;
+      },
+      map: function() {
+
+      },
+      filter: function() {
+
+      },
+      reduce: function() {
+
       }
    };
 
