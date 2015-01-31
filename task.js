@@ -4,8 +4,19 @@
  * Contains implementation for a "task" "class"
  */
 
-var Task, proto;
+var Task = (function() {
+   return Object.freeze(Object.create(null, {
+      "new": {
+         enumerable: true,
+         configurable: false,
+         writable: false,
+         value: makeNewTask
+      }
+   }));
+}());
 
+var proto;
+var uniqueId = 0;
 
 // Helper method. You should not need to change it.
 // Use it in makeTaskFromString
@@ -27,11 +38,31 @@ function processString(s) {
  */
 
 function makeNewTask() {
+   var task = Object.create(proto);
 
+   uniqueId += 1;
+   task.title = "";
+   task.completedTime = new Date();
+
+   Object.defineProperty(task, 'id', {
+      enumerable: true,
+      configurable: false,
+      writeable: false,
+      value: uniqueId
+   });
+
+   Object.defineProperty(task, 'tags', {
+      enumerable: false,
+      configurable: false,
+      writeable: false,
+      value: []
+   });
+
+   return Object.preventExtensions(task);
 }
 
 function makeTaskFromObject(o)
- {
+{
 
 }
 
@@ -45,7 +76,17 @@ function makeTaskFromString(str)
 
 proto = {
    //Add instance methods here
-
+   setTitle: function() {},
+   isCompleted: function() {},
+   toggleCompleted: function() {},
+   hasTag: function() {},
+   addTag: function() {},
+   removeTag: function() {},
+   toggleTag: function() {},
+   addTags: function() {},
+   removeTags: function() {},
+   toggleTags: function() {},
+   clone: function() {}
 };
 
 
