@@ -41,10 +41,18 @@ describe('Task methods', function(){
 		expect(task.setTitle("")).to.equal(task);
 	});
 	it('isCompleted returns true if task is completed', function() {
+		task.completedTime = new Date(Date.now());
 		expect(task.isCompleted()).to.equal(true);
 	});
 	it('toggleCompleted returns the task object', function() {
 		expect(task.toggleCompleted()).to.equal(task);
+	});
+	it('toggleCompleted uncompletes a task completed', function() {
+		task.completedTime = new Date(Date.now());
+		expect(task.toggleCompleted().isCompleted()).to.equal(false);
+	});
+	it('toggleCompleted completes a task uncompleted', function() {
+		expect(task.toggleCompleted().isCompleted()).to.equal(true);
 	});
 	it('hasTag returns false when the tag is empty', function() {
 		expect(task.hasTag("")).to.equal(false);
@@ -54,11 +62,11 @@ describe('Task methods', function(){
 		expect(task.hasTag("first")).to.equal(false);
 	});
 	it('hasTag returns true when the tag is in the list', function() {
-		task.addTag("first").addtag("second").addTag("third");
+		task.addTag("first").addTag("second").addTag("third");
 		expect(task.hasTag("second")).to.equal(true);
 	});
 	it('addTag returns the task object', function() {
-		expect(task.addTag()).to.equal(task);
+		expect(task.addTag("fourth")).to.equal(task);
 	});
 	it('addTag should return an error if the tag already exists', function() {
 		task.addTag("first").addTag("second");

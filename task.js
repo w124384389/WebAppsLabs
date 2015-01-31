@@ -42,7 +42,7 @@ function makeNewTask() {
 
    uniqueId += 1;
    task.title = "";
-   task.completedTime = new Date();
+   task.completedTime = null;
 
    Object.defineProperty(task, 'id', {
       enumerable: true,
@@ -76,11 +76,32 @@ function makeTaskFromString(str)
 
 proto = {
    //Add instance methods here
-   setTitle: function() {},
-   isCompleted: function() {},
-   toggleCompleted: function() {},
-   hasTag: function() {},
-   addTag: function() {},
+   setTitle: function(s) {
+      this.title = s.trim();
+      return this; 
+   },
+   isCompleted: function() {
+      return this.completedTime != null;
+   },
+   toggleCompleted: function() {
+      this.completedTime = (this.isCompleted() ? null : new Date(Date.now()));
+      return this;
+   },
+   hasTag: function(tag) {
+      for (var i = this.tags.length - 1; i >= 0; i--) {
+         if (this.tags[i] == tag) {
+            return true;
+         }
+      };
+      return false;
+   },
+   addTag: function(s) {
+      if (this.hasTag(s)) {
+         throw new Error("There is already a tag " + s + " in the tags list.");
+      }
+      this.tags.push(s);
+      return this;
+   },
    removeTag: function() {},
    toggleTag: function() {},
    addTags: function() {},
