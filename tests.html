@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="mocha.css" />
+  </head>
+  <body>
+  <!-- This part has the contents of the page -->
+  <div id="main">
+    <h3>A list of things!</h3>
+    <!-- This list will be populated from our code -->
+    <ul></ul>
+  </div>
+
+  <!-- Everything below is for testing -->
+    <div id="mocha"></div>
+    <script src="mocha.js"></script>
+    <script src="chai.js"></script>
+    <script>
+      mocha.ui('bdd');
+      mocha.reporter('html');
+      expect = chai.expect;
+    </script>
+    <script src="controller.js"></script>
+    <script src="controller.spec.js"></script>
+    <script>
+      if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
+      else { mocha.run(); }
+    </script>
+  </body>
+</html>
