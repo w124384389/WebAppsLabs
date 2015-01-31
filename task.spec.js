@@ -29,3 +29,69 @@ describe('Your makeNewTask function', function(){
 		});
 	});
 });
+
+describe('Task methods', function(){
+	var task;
+
+	beforeEach(function() {
+		task = Task.new();
+	})
+
+	it('setTitle returns the task object', function() {
+		expect(task.setTitle("")).to.equal(task);
+	});
+	it('isCompleted returns true if task is completed', function() {
+		expect(task.isCompleted()).to.equal(true);
+	});
+	it('toggleCompleted returns the task object', function() {
+		expect(task.toggleCompleted()).to.equal(task);
+	});
+	it('hasTag returns false when the tag is empty', function() {
+		expect(task.hasTag("")).to.equal(false);
+	});
+	it('hasTag returns false when the tag is not in the tag list', function() {
+		task.addTag("second");
+		expect(task.hasTag("first")).to.equal(false);
+	});
+	it('hasTag returns true when the tag is in the list', function() {
+		task.addTag("first").addtag("second").addTag("third");
+		expect(task.hasTag("second")).to.equal(true);
+	});
+	it('addTag returns the task object', function() {
+		expect(task.addTag()).to.equal(task);
+	});
+	it('addTag should return an error if the tag already exists', function() {
+		task.addTag("first").addTag("second");
+		expect(task.addTag("second")).to.throw(Error);
+	});
+	it('removeTag returns the task object if the tag is in the list', function() {
+		task.addTag("first");
+		expect(task.removeTag("first")).to.equal(task);
+	});
+	it('removeTag should return an error if the tag does not exists', function() {
+		task.addTag("first").addTag("second");
+		expect(task.removeTag("third")).to.throw(Error);
+	});
+	it('toggleTag should return task object, if the tag is not in the list, adds it', function() {
+		task.addTag("first").addTag("second");
+		expect(function() { 
+			task.toggleTag("third");
+			return task.hasTag("third");
+		}).to.equal(true);
+	});
+	it('toggleTag should return task object, if the tag is in the list, removes it', function() {
+		task.addTag("first").addTag("second");
+		expect(function() { 
+			task.toggleTag("second");
+			return task.hasTag("second");
+		}).to.equal(false);
+	});
+	it('clone returns true if the cloned task has the same title, completion status and tag list as the original task', function() {
+		expect(function() {
+			var t = task.clone();
+			return (t.title === task.title &&
+				t.completed === task.completed &&
+				t.tags === task.tags);
+		}).to.equal(true);
+	});
+});
