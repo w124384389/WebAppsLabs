@@ -131,9 +131,27 @@ proto = {
 
       return this;
    },
-   addTags: function() {},
-   removeTags: function() {},
-   toggleTags: function() {},
+   addTags: function(s) {
+      for (var i = s.length - 1; i >= 0; i -= 1) {
+         this.addTag(s[i]);
+      };
+      //s.forEach(function(value) {
+      //   this.addTag(value);
+      //});
+      return this;
+   },
+   removeTags: function(s) {
+      for (var i = s.length - 1; i >= 0; i -= 1) {
+         this.removeTag(s[i]);
+      };
+      return this;
+   },
+   toggleTags: function(s) {
+      for (var i = s.length - 1; i >= 0; i -= 1) {
+         this.toggleTag(s[i]);
+      };
+      return this;
+   },
    clone: function() {
       var clonedTask = Task.new();
       clonedTask.title = this.title;

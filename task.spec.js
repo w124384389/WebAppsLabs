@@ -98,28 +98,18 @@ describe('Task methods', function(){
 	});
 
 	it('addTags returns the task object for multiple tags', function() {
-		expect(task.addTag("fourth")).to.equal(task);
-	});
-
-	it('removeTags returns the task object if the tags are in the list', function() {
-		task.addTag("first");
-		expect(task.removeTag("first")).to.equal(task);
+		expect(task.addTags(["fourth", "first", "third"])).to.equal(task);
 	});
 
 	it('removeTags should return task object, if the tags were completed removed', function() {
-		task.addTag("first").addTag("third");
-		task.removeTag("third");
-		expect(task.hasTag("third")).to.equal(false);
+		task.addTags(["fourth", "first", "third"]);
+		task.removeTags(["first", "second"]);
+		expect(task.hasTag("second")).to.equal(false);
 	});
 
 	it('toggleTags should return task object, if the tags are not in the list, add them', function() {
-		task.addTag("first").addTag("second");
-		task.toggleTag("third");
-		expect(task.hasTag("third")).to.equal(true);
-	});
-	it('toggleTags should return task object, if the tags are in the list, remove them', function() {
-		task.addTag("first").addTag("second");
-		task.toggleTag("second");
-		expect(task.hasTag("second")).to.equal(false);
+		task.addTags(["fourth", "first", "third"]);
+		task.toggleTags(["third", "fifth"]);
+		expect(!task.hasTag("third") && task.hasTag("fifth")).to.equal(true);
 	});
 });
