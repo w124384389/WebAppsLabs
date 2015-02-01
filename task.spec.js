@@ -113,3 +113,28 @@ describe('Task methods', function(){
 		expect(!task.hasTag("third") && task.hasTag("fifth")).to.equal(true);
 	});
 });
+
+describe('Your makeTaskFromObject', function(){
+	var task = Task.fromObject({
+		title: "title",
+		tags: ["fourth", "first", "third"]
+	});
+
+	it('new task has title equal to the object title', function() {
+		expect(task.title === "title").to.equal(true);
+	});
+	it('new task has tag "first" ', function() {
+		expect(task.hasTag("first")).to.equal(true);
+	});
+});
+
+describe('Your makeTaskFromString', function(){
+	var task = Task.fromString(" hi there! #hottopic ");
+
+	it('new task has title equal to the string title: "hi there!"', function() {
+		expect(task.title === "hi there!").to.equal(true);
+	});
+	it('new task has tag "hottopic"', function() {
+		expect(task.hasTag("hottopic")).to.equal(true);
+	});
+});

@@ -11,6 +11,18 @@ var Task = (function() {
          configurable: false,
          writeable: false,
          value: makeNewTask
+      },
+      "fromObject": {
+         enumerable: true,
+         configurable: false,
+         writeable: false,
+         value: makeTaskFromObject
+      },
+      "fromString": {
+         enumerable: true,
+         configurable: false,
+         writeable: false,
+         value: makeTaskFromString
       }
    }));
 }());
@@ -61,13 +73,17 @@ function makeNewTask() {
    return Object.preventExtensions(task);
 }
 
-function makeTaskFromObject(o)
-{
-
+function makeTaskFromObject(o) {
+   var t = Task.new();
+   t.setTitle(o.title);
+   //t.tags = o.tags.slice(0);
+   t.addTags(o.tags);  
+   return t;
 }
 
-function makeTaskFromString(str)
-{}
+function makeTaskFromString(str) {
+   return Task.fromObject(processString(str));
+}
 
 
 /*
