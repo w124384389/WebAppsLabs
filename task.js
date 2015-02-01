@@ -88,22 +88,37 @@ proto = {
       return this;
    },
    hasTag: function(tag) {
-      for (var i = this.tags.length - 1; i >= 0; i--) {
-         if (this.tags[i] == tag) {
+      var i;
+      for (i = this.tags.length - 1; i >= 0; i--) {
+         if (this.tags [ i ] === tag) {
             return true;
          }
-      };
+      }
       return false;
    },
    addTag: function(s) {
-      if (this.hasTag(s)) {
-         throw new Error("There is already a tag " + s + " in the tags list.");
+      if (!this.hasTag(s)) {
+      
+         this.tags.push(s);
+         return this;
       }
-      this.tags.push(s);
+   },
+   removeTag: function(p) {
+      if (this.hasTag(p)) {
+         this.tags.pop(p);
+         return this;
+      }
+   },
+   toggleTag: function(q) {
+      if (this.hasTag(q)){
+         this.tags.pop(q);
+      }
+      else
+      {
+         this.tags.push(q);
+      }
       return this;
    },
-   removeTag: function() {},
-   toggleTag: function() {},
    addTags: function() {},
    removeTags: function() {},
    toggleTags: function() {},

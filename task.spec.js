@@ -68,18 +68,12 @@ describe('Task methods', function(){
 	it('addTag returns the task object', function() {
 		expect(task.addTag("fourth")).to.equal(task);
 	});
-	it('addTag should return an error if the tag already exists', function() {
-		task.addTag("first").addTag("second");
-		expect(task.addTag("second")).to.throw(Error);
-	});
+
 	it('removeTag returns the task object if the tag is in the list', function() {
 		task.addTag("first");
 		expect(task.removeTag("first")).to.equal(task);
 	});
-	it('removeTag should return an error if the tag does not exists', function() {
-		task.addTag("first").addTag("second");
-		expect(task.removeTag("third")).to.throw(Error);
-	});
+
 	it('toggleTag should return task object, if the tag is not in the list, adds it', function() {
 		task.addTag("first").addTag("second");
 		expect(function() { 
