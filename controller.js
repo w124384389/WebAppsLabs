@@ -17,17 +17,13 @@ var makeController = function(element, tasks) {
    // element and tasks are local variables representing the UI elements
    // We will ensure "element" is a jQuery object and that tasks exists.
    var el = $(element);
-   tasks = typeof tasks == 'undefined' ? [] : tasks;
+   tasks = typeof tasks == "undefined" ? [] : tasks;
 
    // add an "add" button right after the element
    addAddButton();
    // Bind events to controller functions
    bindEvents();
 
-   return {
-      el: element,
-      tasks: tasks
-   };
 
    /*
     * Everything below here is the functions you need to implement.
@@ -205,10 +201,15 @@ var makeController = function(element, tasks) {
     * You do not need to change this method.
     */
    function bindEvents() {
-      el.on('dblclick', 'li', editElement);
-      el.on('change', '.edit', commitEditing);
-      el.on('click', '.remove', removeElement);
-      el.on('keydown', '.edit', checkForCancel);
+      el.on("dblclick", "li", editElement);
+      el.on("change", ".edit", commitEditing);
+      el.on("click", ".remove", removeElement);
+      el.on("keydown", ".edit", checkForCancel);
+   }
+
+   return {
+      el: element,
+      tasks: tasks
    };
 };
 
@@ -220,10 +221,6 @@ var makeController = function(element, tasks) {
 $(function() {
    "use strict";
 
-   var controller; // a specific controller object initialized to work
-                   // with our page
-
-   // Create the controller
-   controller = makeController($('#main ul'), []);
-
+   // Create the specific controller object initialized to work with our page
+   makeController($("#main ul"), []);
 });
