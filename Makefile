@@ -1,15 +1,8 @@
 lint:
-	eslint task.js collection.js
+	eslint controller.js
 
-lintall:
-	eslint task.js collection.js task.spec.js collection.spec.js
+lintall: lint
 
-testTask:
-	mocha task.spec.js
-
-testCollection:
-	mocha collection.spec.js
-
-test: testTask testCollection
+test:
 
 all: lint test
