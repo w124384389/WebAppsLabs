@@ -7,17 +7,16 @@
 /*
  * Used to create a new "controller".
  * "element" needs to be a DOM or jQuery "ul" element.
- * "tasks" is an array of strings. This array will be used "as is",
- *    i.e. a reference to it is stored and used, rather than cloning.
- *    Defaults to [] if not provided.
  */
-var makeController = function(element, tasks) {
+var makeController = function(element) {
    "use strict";
 
-   // element and tasks are local variables representing the UI elements
-   // We will ensure "element" is a jQuery object and that tasks exists.
+   // el is a jQuery object wrapping "element", in case it wasn't a jQuery
+   // object already.
    var el = $(element);
-   tasks = typeof tasks == "undefined" ? [] : tasks;
+
+   // "tasks" is an array of strings for the tasks to be shown.
+   var tasks = [];
 
    // add an "add" button right after the element
    addAddButton();
@@ -103,7 +102,7 @@ var makeController = function(element, tasks) {
 
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
-      // "element"
+      // "el"
 
 
       // Bind clicking of the button to calling the addNewTask function.
@@ -116,7 +115,7 @@ var makeController = function(element, tasks) {
     * Adds a new "Task". In this method you should:
     * - Push a new string with the text "New Task" at the end of the tasks array.
     * - Create a new "li" using newTaskHTML and jQuery
-    * - Put that "li" at the end of the "element".
+    * - Put that "li" at the end of the "el".
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
@@ -222,5 +221,5 @@ $(function() {
    "use strict";
 
    // Create the specific controller object initialized to work with our page
-   makeController($("#main ul"), []);
+   makeController($("#main ul"));
 });
