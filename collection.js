@@ -14,17 +14,17 @@ Task = require("./task");
 
 function makeNewCollection(arr) {
 
-};
+}
 
 
 /*
  *       Prototype / Instance methods
  */
 
-proto={
+proto = {
    //Add instance methods here
 
-}
+};
 
 
 
