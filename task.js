@@ -9,7 +9,7 @@ var Task = (function() {
       "new": {
          enumerable: true,
          configurable: false,
-         writable: false,
+         writeable: false,
          value: makeNewTask
       }
    }));
@@ -84,12 +84,12 @@ proto = {
       return this.completedTime != null;
    },
    toggleCompleted: function() {
-      this.completedTime = (this.isCompleted() ? null : new Date(Date.now()));
+      this.completedTime = this.isCompleted() ? null : new Date(Date.now());
       return this;
    },
    hasTag: function(tag) {
       var i;
-      for (i = this.tags.length - 1; i >= 0; i--) {
+      for (i = this.tags.length - 1; i >= 0; i -= 1) {
          if (this.tags [ i ] === tag) {
             return true;
          }
@@ -98,31 +98,49 @@ proto = {
    },
    addTag: function(s) {
       if (!this.hasTag(s)) {
-      
          this.tags.push(s);
          return this;
       }
    },
    removeTag: function(p) {
-      if (this.hasTag(p)) {
-         this.tags.pop(p);
-         return this;
+      var i;
+      console.log("foi");
+      for (i = this.tags.length - 1; i >= 0; i -= 1) {
+         if (this.tags[i] === p) {
+
+            this.tags.splice(i, 1);
+
+            break;
+         }
       }
+      return this;
    },
    toggleTag: function(q) {
-      if (this.hasTag(q)){
-         this.tags.pop(q);
+      var i, contain = false;
+      for (i = this.tags.length - 1; i >= 0; i -= 1) {
+         if (this.tags[i] === q) {
+            this.tags.splice(i, 1);
+            contain = true;
+            break;
+         }
       }
-      else
-      {
+
+      if (!contain) {
          this.tags.push(q);
       }
+
       return this;
    },
    addTags: function() {},
    removeTags: function() {},
    toggleTags: function() {},
-   clone: function() {}
+   clone: function() {
+      var clonedTask = Task.new();
+      clonedTask.title = this.title;
+      clonedTask.completedTime = this.completedTime;
+      clonedTask.tags = this.tags.slice(0);
+      return this;
+   }
 };
 
 

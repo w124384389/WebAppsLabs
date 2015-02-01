@@ -74,26 +74,26 @@ describe('Task methods', function(){
 		expect(task.removeTag("first")).to.equal(task);
 	});
 
+	it('removeTag should return task object, if the tag was completed removed', function() {
+		task.addTag("first").addTag("third");
+		task.removeTag("third");
+		expect(task.hasTag("third")).to.equal(false);
+	});
+
 	it('toggleTag should return task object, if the tag is not in the list, adds it', function() {
 		task.addTag("first").addTag("second");
-		expect(function() { 
-			task.toggleTag("third");
-			return task.hasTag("third");
-		}).to.equal(true);
+		task.toggleTag("third");
+		expect(task.hasTag("third")).to.equal(true);
 	});
 	it('toggleTag should return task object, if the tag is in the list, removes it', function() {
 		task.addTag("first").addTag("second");
-		expect(function() { 
-			task.toggleTag("second");
-			return task.hasTag("second");
-		}).to.equal(false);
+		task.toggleTag("second");
+		expect(task.hasTag("second")).to.equal(false);
 	});
 	it('clone returns true if the cloned task has the same title, completion status and tag list as the original task', function() {
-		expect(function() {
-			var t = task.clone();
-			return (t.title === task.title &&
-				t.completed === task.completed &&
-				t.tags === task.tags);
-		}).to.equal(true);
+		task.addTag("first").addTag("second").addTag("third");
+		var t = task.clone();
+		var status = t.title === task.title && t.completed === task.completed && t.tags === task.tags;
+		expect(status).to.equal(true);
 	});
 });
