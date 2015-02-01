@@ -1,7 +1,6 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="mocha.css" />
     <link rel="stylesheet" href="ourModifications.css" />
     <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
   </head>
@@ -13,20 +12,6 @@
     <ul></ul>
   </div>
 
-  <!-- Everything below is for testing -->
-    <div id="mocha"></div>
-    <script src="mocha.js"></script>
-    <script src="chai.js"></script>
-    <script>
-      mocha.ui('bdd');
-      mocha.reporter('html');
-      expect = chai.expect;
-    </script>
-    <script src="controller.js"></script>
-    <script src="controller.spec.js"></script>
-    <script>
-      if (window.mochaPhantomJS) { mochaPhantomJS.run(); }
-      else { mocha.run(); }
-    </script>
+  <script src="controller.js"></script>
   </body>
 </html>
