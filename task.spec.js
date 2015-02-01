@@ -96,4 +96,30 @@ describe('Task methods', function(){
 		var status = t.title === task.title && t.completed === task.completed && t.tags === task.tags;
 		expect(status).to.equal(true);
 	});
+
+	it('addTags returns the task object for multiple tags', function() {
+		expect(task.addTag("fourth")).to.equal(task);
+	});
+
+	it('removeTags returns the task object if the tags are in the list', function() {
+		task.addTag("first");
+		expect(task.removeTag("first")).to.equal(task);
+	});
+
+	it('removeTags should return task object, if the tags were completed removed', function() {
+		task.addTag("first").addTag("third");
+		task.removeTag("third");
+		expect(task.hasTag("third")).to.equal(false);
+	});
+
+	it('toggleTags should return task object, if the tags are not in the list, add them', function() {
+		task.addTag("first").addTag("second");
+		task.toggleTag("third");
+		expect(task.hasTag("third")).to.equal(true);
+	});
+	it('toggleTags should return task object, if the tags are in the list, remove them', function() {
+		task.addTag("first").addTag("second");
+		task.toggleTag("second");
+		expect(task.hasTag("second")).to.equal(false);
+	});
 });
