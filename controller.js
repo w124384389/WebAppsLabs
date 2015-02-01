@@ -34,6 +34,69 @@ var makeController = function(element, tasks) {
     */
 
    /*
+    * HELPER FUNCTIONS
+    *
+    * These functions are meant to be used from the handlers
+    */
+
+   /*
+    * Given a string "str", should return the html string that has a
+    * list item, and in it a "span" containing the string, followed by
+    * an "input" button for "remove". See examples in sample.html
+    */
+   function newTaskHTML(str) {
+
+   }
+
+   /*
+    * Given an event that occured in an element within a "list element"
+    * returns that "li" element (in jQuery wrapper).
+    * Use jQuery's "closest".
+    */
+   function getLi(ev) {
+
+   }
+
+   /*
+    * Given a list item (as jQuery wrapper) returns its index among its
+    * "li"-siblings.
+    * Use jQuery's "prevAll".
+    */
+   function getIndex(li) {
+
+   }
+
+   /*
+    * Given a jQuery wrapper for a list item, enables "Edit mode" for that
+    * item, namely:
+    * - Sets a class of "hidden" on all elements in the list item
+    * - Creates and adds in the list element an "input" element of type
+    *     text and class "edit"
+    * - Returns a reference to the jQuery wrapper of that edit element.
+    */
+   function enableEditMode(li) {
+
+   }
+
+   /*
+    * Given a jQuery wrapper for a list item, disables "Edit mode" for that
+    * item, namely:
+    * - Removes any "input" element of class "edit" in the list item
+    *       if there was one
+    * - Removes the class of "hidden" from all elements in the list item
+    * - Returns the list item
+    */
+   function disableEditMode(li) {
+
+   }
+
+   /*
+    * EVENT HANDLERS
+    *
+    * All functions below are handling events
+    */
+
+   /*
     * Adds an input tag as a sibling immediately after the element.
     * Input tag should be a button, saying "New" on it.
     * You need to bind the button's click event to the "addNewTask"
@@ -41,11 +104,14 @@ var makeController = function(element, tasks) {
     */
    function addAddButton() {
       var button;   // Should be a reference to the newly created button
+
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
-      // element
+      // "element"
+
 
       // Bind clicking of the button to calling the addNewTask function.
+
 
       return this;
    }
@@ -53,10 +119,8 @@ var makeController = function(element, tasks) {
    /*
     * Adds a new "Task". In this method you should:
     * - Push a new string with the text "New Task" at the end of the tasks array.
-    * - Create a new "li" item that contains:
-    *     - A "span" whose contents is the string.
-    *     - An "input" of type "button", class "remove" and value "Remove".
-    * - Put that "li" at the end of the element.
+    * - Create a new "li" using newTaskHTML and jQuery
+    * - Put that "li" at the end of the "element".
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
@@ -66,12 +130,11 @@ var makeController = function(element, tasks) {
    /*
     * This method triggers in response to clicking the button with class
     * remove. It should:
-    * - Identify the "li" element containing the button.
-    * - Identify the index of this element by figuring out how many
-    *    sibling "li"'s are before it.
+    * - Identify the "li" element containing the button. (use a helper method)
+    * - Identify the index of this element (use helper method)
     * - Remove the correspondingly-indexed element from the tasks array.
-    * - Remove the "li" element. from the list.
-    * - return true to not prevent propagation.
+    * - Remove the "li" element from the list.
+    * - Return true to not prevent propagation.
     */
    function removeElement(ev) {
       return true;
@@ -83,12 +146,8 @@ var makeController = function(element, tasks) {
     * inserting an input element and hiding the existing elements.
     * It should do the following:
     * - Identify the "li" element that was clicked
-    * - Add the class "hidden" to the "span" element and the remove button.
-    *    Together with our CSS specification, this will hide them.
-    * - Create and insert into "li" an "input" element with type "text",
-    *       class "edit" and value equal to the string corresponding to
-    *       this "li" element.
-    * - Set the focus to this new input element.
+    * - Invoke the "enableEditMode" function on that element
+    * - Set the focus to the input element that enableEditMode created.
     * - Return true to allow propagation.
     */
    function editElement(ev) {
@@ -98,19 +157,24 @@ var makeController = function(element, tasks) {
    /*
     * This method happens when the text input where the user was editing a
     * text is registering a change, typically associated with tabbing out
-    * or pressing "return". This should commit the change. So you need to
-    * do the following:
-    * - Get the value of the edit element
-    * - Find the "li" element containing this edit element
-    * - Delete the class "hidden" from the "span" and "button" that are
-    *    in that "li" element
-    * - Remove the edit element
+    * or pressing "return". This should commit the change. However, this
+    * event can trigger even in cases where an escape was pressed. In that
+    * case checkForCancel has run and possibly already removed the edit
+    * text input from the DOM. When this method is subsequently called,
+    * the edit element might not exist, and/or might not be an element
+    * inside "li".
+    *
+    * So you need to do the following:
+    * - Determine if the edit element still exists and is inside an "li".
+    *       If it is not, you can immediately return true.
+    * - Find the "li" element containing the edit element. (helper method)
+    * - Get the value of the edit element.
+    * - Find the index of the list element within its siblings (helper method)
+    * - Set the string at the corresponding index in the "tasks" array to
+    *       the new value (from the edit element)
     * - Set the contents of the "span" to the value you read from the edit
     *     element.
-    * - Find what index in the whole list of "li"'s this particular element is
-    *      This particular task is needed in multiple function, think of
-    *      separating it into a function of its own
-    * - Set the corresponding string in the "tasks" array to the new value
+    * - Call on "disableEditMode" to fix the interface and remove the edit element
     * - Return true to allow propagation
     */
    function commitEditing(ev) {
@@ -121,14 +185,11 @@ var makeController = function(element, tasks) {
     * This method is meant to react to the case where the user has pressed
     * the "esc" button to aknowledge that they did not mean to edit the
     * item. You should do the following:
-    * - Read the keyboard code of the event, and if it is not escape return.
-    *       That part is done for you.
-    * - If it was an escape, we need to cancel the current editing field.
-    * - Find the "li" element containing the text input element
-    * - Delete the class "hidden" from the "span" and "button" that are
-    *    in that "li" element
-    * - Remove the edit element. Note that these last two steps are common
-    *    for multiple functions, maybe separate them into their own function.
+    * - Read the keyboard code of the event, and if it is not "Escape"
+    *       then return. This part is done for you.
+    * - If it was an "Escape", we need to cancel the current editing field.
+    * - Find the "li" element containing the text input element (helper method)
+    * - Use a helper method to disable the editing mode.
     * - Return "false" to prevent propagation in the case of an escape.
     */
    function checkForCancel(ev) {
@@ -153,8 +214,7 @@ var makeController = function(element, tasks) {
 
 
 // jQuery with function. This function runs when the page has finished
-// loading.
-// We will use this function as the local scope in which to define things.
+// loading. It gets everything started
 //
 // Normally this would have been on a different file.
 $(function() {
