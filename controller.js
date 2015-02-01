@@ -147,7 +147,7 @@ var makeController = function(element, tasks) {
       el.on('dblclick', 'li', editElement);
       el.on('change', '.edit', commitEditing);
       el.on('click', '.remove', removeElement);
-      el.on('keypress', '.edit', checkForCancel);
+      el.on('keydown', '.edit', checkForCancel);
    };
 };
 
