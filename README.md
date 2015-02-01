@@ -1,10 +1,8 @@
 # Lab 4, jQuery and page interaction
 
-In this lab we will work on interacting with a webpage. We will continue using eslint and writing tests.
+In this lab we will work on interacting with a webpage. We will continue using eslint, but will not write automated test for this one. You will instead test things by interacting with the webpage, combined with adding console logs at appropriate places in the code.
 
-Tests are a bit harder in this instance, as we want to also test things that happen in the web-page.
-
-One the first half of the lab, you will rely on manually testing the pages in the browser, as well as adding console logs at appropriate places. Later we will discuss adding automated tests.
+At a later lab we will discuss creating automated tests that run on the browser.
 
 ## Overview
 
@@ -17,10 +15,6 @@ Here is a list of the files you will want to look at:
 This is the main file containing all your code. For most of the lab you will edit this file.
 
 You will need to do a linting of it first, but we will get to those steps in a minute.
-
-#### `controller.spec.js`
-
-This will later in the lab contain automated testing code. Will be blank for most of the lab.
 
 #### `tests.html`
 
@@ -48,7 +42,7 @@ You can do these steps in either order.
 
 We will now go into some more detail regarding the contents of `controller.js`.
 
-The main function in the file is `makeController`. It takes two arguments: a "ul" `element` and an array `tasks` of strings. It is in charge of managing the contents of the "ul" element and maintaining there a list of "list elements", one for each string in the array `tasks`.
+The main function in the file is `makeController`. It takes as arguments a "ul" `element`. It is in charge of managing the contents of the "ul" element and maintaining there a list of "list elements", one for each string in an array `tasks` that it maintains at the same time.
 
 The function `makeController` extends to almost the end of the file. After it, we use jQuery's `$(f)` form to have a function execute when the document page is ready. In it we use makeController to bind a controller to the "ul" element in the web page. You do not need to do anything with this function.
 
@@ -80,5 +74,35 @@ Now we will discuss the functions you will need to implement, and in the order t
 
 ### Details on the CSS tasks
 
-For this part of the lab, you should have `sample.html` open in the browser, and you should be editing `ourModifications.css`. We have provided all the "selectors" you will need, you will just need to fill in the rules as per the instructions.
+For this part of the lab, you should have `sample.html` open in the browser, and you should be editing `ourModifications.css`. We have provided all the "selectors" you will need, you will just need to fill in the rules as per the instructions. You will need to consult the [CSS reference](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference) along the way.
 
+A lot of these ask you to set colors. You can use [any number](http://paletton.com/) of [color pickers](http://www.colorpicker.com/) that are available online.
+
+1. There is a rule that catches the element with id of main. In that rule you will need to:
+    - set the margins to be 20% on left/right and 10% on top/bottom.
+    - set a border of 1px thickness, solid, and with a color in the gray area, perhaps "#DDD"  (look in [the syntax area on this link](https://developer.mozilla.org/en-US/docs/Web/CSS/color) for different color specification formats).
+    - add a padding of 2 ems on all sides.
+2. There is a level 3 heading rule. In it you will need to:
+    - set it to align the text to "center".
+    - set its font size to 200%.
+    - put a border at its bottom, dotted, 2px, and of some gray-ish color.
+3. There is a rule for list items that are inside of the element with id main. In that rule:
+    - set the font size to 115%.
+    - add padding of 0.2em all around.
+    - instruct it to not use the bullet on the left (`list-style-type` is the relevant argument).
+    - Set its width to 100%.
+    - Add a 3px margin at top and bottom, and 0 left-right
+    - Add a 2px solid black border.
+    - Add a 10px border radius. You should get a nice rounded corners effect.
+4. There is a rule that catches the items with a class of "remove" that are within a list item. In that rule:
+    - set the element to float to the right.
+    - set its line height property to 0.9 ems. This should make it a bit more centered vertically.
+5. There is a rule that matches the list items when one hovers over them with the mouse. In that rule:
+    - set the background color to be a light ciel, maybe something like "#AEE".
+6. There is a rule targeting the "ul" element that is the list. In that rule:
+    - set the padding equal to 0 to reset one of the browser defaults.
+7. There is a rule targeting an element with class "edit". In that rule:
+    - set the width of the element to 100%.
+8. There are two rules targetting buttons, one targetting them when you hover.
+    - In the rule that holds always, set a 2px solid black border, and a background color of your choosing. Also give them a 10px border radius.
+    - In the rule that holds on hover, choose a different background color, and also change the color of the border.
