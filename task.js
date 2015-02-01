@@ -122,7 +122,7 @@ proto = {
       var i;
       console.log("foi");
       for (i = this.tags.length - 1; i >= 0; i -= 1) {
-         if (this.tags[i] === p) {
+         if (this.tags[ i ] === p) {
 
             this.tags.splice(i, 1);
 
@@ -134,7 +134,7 @@ proto = {
    toggleTag: function(q) {
       var i, contain = false;
       for (i = this.tags.length - 1; i >= 0; i -= 1) {
-         if (this.tags[i] === q) {
+         if (this.tags[ i ] === q) {
             this.tags.splice(i, 1);
             contain = true;
             break;
@@ -148,24 +148,27 @@ proto = {
       return this;
    },
    addTags: function(s) {
-      for (var i = s.length - 1; i >= 0; i -= 1) {
-         this.addTag(s[i]);
-      };
+      var i;
+      for (i = s.length - 1; i >= 0; i -= 1) {
+         this.addTag(s[ i ]);
+      }
       //s.forEach(function(value) {
       //   this.addTag(value);
       //});
       return this;
    },
    removeTags: function(s) {
-      for (var i = s.length - 1; i >= 0; i -= 1) {
-         this.removeTag(s[i]);
-      };
+      var i;
+      for (i = s.length - 1; i >= 0; i -= 1) {
+         this.removeTag(s[ i ]);
+      }
       return this;
    },
    toggleTags: function(s) {
-      for (var i = s.length - 1; i >= 0; i -= 1) {
-         this.toggleTag(s[i]);
-      };
+      var i;
+      for (i = s.length - 1; i >= 0; i -= 1) {
+         this.toggleTag(s[ i ]);
+      }
       return this;
    },
    clone: function() {
