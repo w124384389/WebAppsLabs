@@ -21,7 +21,7 @@ function makeNewCollection(arr) {
  *       Prototype / Instance methods
  */
 
-proto={
+proto = {
    //Add instance methods here
 
 }
@@ -38,4 +38,4 @@ Object.defineProperty(TaskCollection, proto, {
    writable: false
 });
 
-module.exports = Task;
+module.exports = TaskCollection;
