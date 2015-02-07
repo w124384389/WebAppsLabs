@@ -42,7 +42,7 @@ var makeController = function(element) {
     * an "input" button for "remove". See examples in sample.html
     */
    function newTaskHTML(str) {
-
+      return '<li><span>' + str + '</span><input type="button" class="remove" value="Remove"></li>';
    }
 
    /*
@@ -51,7 +51,7 @@ var makeController = function(element) {
     * Use jQuery's "closest".
     */
    function getLi(ev) {
-
+      return $(ev).closest('li');
    }
 
    /*
@@ -60,7 +60,7 @@ var makeController = function(element) {
     * Use jQuery's "prevAll".
     */
    function getIndex(li) {
-
+      return $(li).prevAll().length;
    }
 
    /*
@@ -72,7 +72,13 @@ var makeController = function(element) {
     * - Returns a reference to the jQuery wrapper of that edit element.
     */
    function enableEditMode(li) {
+      var editLi;
 
+      $(li).find('span').attr('class', 'hidden');
+      $(li).find('input').attr('class', 'remove hidden');
+      $('<input>').attr('type', 'text').attr('class', 'edit').attr('value','Task in edit mode').prependTo(li);
+
+      return li;
    }
 
    /*
@@ -84,7 +90,10 @@ var makeController = function(element) {
     * - Returns the list item
     */
    function disableEditMode(li) {
-
+         $(li).find('input').first().remove();
+         $(li).find('span').removeClass('hidden');
+         $(li).find('input').attr('class', 'remove');
+         return li;
    }
 
    /*
@@ -109,7 +118,7 @@ var makeController = function(element) {
       button.insertAfter(el);      
 
       // Bind clicking of the button to calling the addNewTask function.
-      button.click(addAddButton);
+      button.click(addNewTask);
 
       return this;
    }
@@ -122,6 +131,10 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
+      console.log(newTaskHTML('pressed new button'));
+      var str = "Task " + (tasks.length+1);
+      tasks.push(str);
+      $(newTaskHTML(str)).appendTo(el);
       return true;
    }
 
@@ -135,6 +148,13 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function removeElement(ev) {
+      var i = getIndex(getLi(ev.target));
+      
+      //removes from tags
+      tasks.splice(i, 1);
+      //removes from 'li' list
+      $("li").get(i).remove();
+
       return true;
    }
 
@@ -149,6 +169,8 @@ var makeController = function(element) {
     * - Return true to allow propagation.
     */
    function editElement(ev) {
+      enableEditMode(getLi(ev.target)).focus();
+
       return true;
    }
 
@@ -192,6 +214,8 @@ var makeController = function(element) {
     */
    function checkForCancel(ev) {
       if (ev.keyCode !== 0x1B) { return true; }
+
+      disableEditMode(getLi(ev.target));
 
       return false;
    }
