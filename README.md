@@ -2,7 +2,7 @@
 
 In this lab we will continue building our TODO / TaskList application.
 
-You should have a working version of the Task class from Lab3. This lab assumes that you have such a version in a file named `task.js`. You will need to copy that file over from your Lab3. The following line should accomplish this:
+You should have a working version of the Task class from Lab3. This lab assumes that you have such a version in a file named `task.js`. You will need to copy that file over from your Lab3. The following line should accomplish this, do it after you are in the Lab5 branch:
 
 ```bash
 git checkout Lab3 -- task.js
@@ -63,13 +63,15 @@ These will all go into the `proto` object. It should contain no other properties
     - It could be a regular expression. In this case you return the first task, if any, for which the title matches the regular expression.
 
     You may find it helpful to create a private helper function that takes arguments in the same format at `get`, but returns instead the index of the `values` array in which the matched task resides, or `-1` if there isn't any matching task.
+
+    You should implement the method as if the first type of argument (a function) is the only one you have to deal with. After that, extend it to all other types by creating a function "turnArgIntoFunc" that turns all those other types of arguments into an appropriate function type.
 - **has**: Behaves exactly like `get`, but returns a boolean indicating whether a task was found, rather than returning the task. This should be very short.
 - **add**: Expects as argument a Task object (no need to check for this). It will add the object to the list, if it does not already exist (don't forget that id's are unique for each task).
 
     It may also instead be given as argument an array of task objects. In that case, it should add all the task objects, if they do not already exist in the list. You may find it helpful to use some sort of private "addOneTask" function.
 
     Returns `this` (the collection).
-- **new**: Not to be confused with the class-level method new, nor the Task class's new. Takes no arguments. Creates a new task object (by calling `Task.new`), adds it to the collection, then returns it.
+- **new**: Not to be confused with the class-level method new, nor the Task class's new. Takes no arguments. Creates a new task object (by calling `Task.new`), adds it to the collection, then returns the new task object.
 - **remove**: Expects as argument a single number or array of numbers. It interprets those numbers as the id's of the tasks you want to have removed. Then removes those tasks from the list, if they were present. Returns `this` (the collection).
 - **filter**: Expects its argument in the same formats as `get`, except that in the case of a single number it expects to be provided an array of numbers instead. It returns a *new* TaskCollection containing those tasks that match the criteria (not clones, the tasks themselves; only the collection would be new).
 - **forEach**: Takes as argument a function `f(task)`. It will call the function on each element in its `values` array, passing it the task as the single argument. Returns `this`.
@@ -83,3 +85,6 @@ These will all go into the `proto` object. It should contain no other properties
     - There should be no extra space after the last tag.
     - The last task should include a newline at its end.
     - An empty collection should return an empty string.
+
+    You will probably want to create a local helper function, "printTask", that is given a task and returns the corresponding string. Then your "print" method can more or less join those strings.
+- **concat**: Takes one or more arguments, that it may assume are TaskCollection objects. It then proceeds to add all their elements to the collection in `this` (the elements themselves, not clones of them). Returns `this`. It should be able to handle an arbitrary number of arguments. It should not alter the passed TaskCollection objects (i.e. they will retain their objects).

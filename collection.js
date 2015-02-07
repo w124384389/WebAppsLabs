@@ -33,7 +33,7 @@ TaskCollection = {
    new: makeNewCollection
 };
 
-Object.defineProperty(TaskCollection, proto, {
+Object.defineProperty(TaskCollection, "prototype", {
    value: proto,
    writable: false
 });
