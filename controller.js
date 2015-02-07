@@ -1,3 +1,5 @@
+/* global $ */
+
 /*
  * controller.js
  *
@@ -120,7 +122,7 @@ var makeController = function(element) {
     */
    function addNewTask(ev) {
       return true;
-   };
+   }
 
    /*
     * This method triggers in response to clicking the button with class
@@ -133,7 +135,7 @@ var makeController = function(element) {
     */
    function removeElement(ev) {
       return true;
-   };
+   }
 
 
    /*
@@ -147,7 +149,7 @@ var makeController = function(element) {
     */
    function editElement(ev) {
       return true;
-   };
+   }
 
    /*
     * This method happens when the text input where the user was editing a
@@ -174,7 +176,7 @@ var makeController = function(element) {
     */
    function commitEditing(ev) {
       return true;
-   };
+   }
 
    /*
     * This method is meant to react to the case where the user has pressed
@@ -191,7 +193,7 @@ var makeController = function(element) {
       if (ev.keyCode !== 0x1B) { return true; }
 
       return false;
-   };
+   }
 
    /* You do not need to change anything below this line */
 
