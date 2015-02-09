@@ -74,10 +74,13 @@ var makeController = function(element) {
    function enableEditMode(li) {
       var editLi;
 
-      $(li).find('span').attr('class', 'hidden');
-      $(li).find('input').attr('class', 'remove hidden');
-      $('<input>').attr('type', 'text').attr('class', 'edit').attr('value','Task in edit mode').prependTo(li);
-
+      //check if the span class is already hidden. If not, then enable the edit mode
+      if (!($(li).find('span').hasClass("hidden"))) {
+         $(li).find('span').attr('class', 'hidden');
+         $(li).find('input').attr('class', 'remove hidden');
+         $('<input>').attr('type', 'text').attr('class', 'edit').attr('value', tasks[getIndex(li)]).prependTo(li);   
+      }
+      
       return li;
    }
 
@@ -131,7 +134,6 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
-      console.log(newTaskHTML('pressed new button'));
       var str = "Task " + (tasks.length+1);
       tasks.push(str);
       $(newTaskHTML(str)).appendTo(el);
@@ -198,6 +200,16 @@ var makeController = function(element) {
     * - Return true to allow propagation
     */
    function commitEditing(ev) {
+      if (ev.target.parentNode === null) { return true; }
+
+      var newValue, li;
+      
+      //change the task value
+      li = getLi(ev.target);
+      newValue = $(li.find('input')).val();
+      tasks[getIndex(li)] = newValue;
+      $(li.find('span')).html(newValue);
+
       return true;
    }
 
