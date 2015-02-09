@@ -1,4 +1,4 @@
-# Lab 5, Collections, sets
+# Lab 5, Collections
 
 In this lab we will continue building our TODO / TaskList application.
 
