@@ -117,7 +117,7 @@ var makeController = function(element) {
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
       // "el"
-      button = $('<input type="button" value="New" />');
+      button = $('<input>').attr('type','button').attr('value', 'New');
       button.insertAfter(el);      
 
       // Bind clicking of the button to calling the addNewTask function.
