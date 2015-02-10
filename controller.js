@@ -15,10 +15,9 @@ var makeController = function(element) {
 
    // el is a jQuery object wrapping "element", in case it wasn't a jQuery
    // object already.
-   var el = $(element);
-
    // "tasks" is an array of strings for the tasks to be shown.
-   var tasks = [];
+   var el = $(element), tasks = [];
+
 
    // add an "add" button right after the element
    addAddButton();
@@ -42,7 +41,7 @@ var makeController = function(element) {
     * an "input" button for "remove". See examples in sample.html
     */
    function newTaskHTML(str) {
-      return '<li><span>' + str + '</span><input type="button" class="remove" value="Remove"></li>';
+      return "<li><span>" + str + '</span><input type="button" class="remove" value="Remove"></li>';
    }
 
    /*
@@ -51,7 +50,7 @@ var makeController = function(element) {
     * Use jQuery's "closest".
     */
    function getLi(ev) {
-      return $(ev).closest('li');
+      return $(ev).closest("li");
    }
 
    /*
@@ -72,15 +71,12 @@ var makeController = function(element) {
     * - Returns a reference to the jQuery wrapper of that edit element.
     */
    function enableEditMode(li) {
-      var editLi;
-
-      //check if the span class is already hidden. If not, then enable the edit mode
-      if (!($(li).find('span').hasClass("hidden"))) {
-         $(li).find('span').attr('class', 'hidden');
-         $(li).find('input').attr('class', 'remove hidden');
-         $('<input>').attr('type', 'text').attr('class', 'edit').attr('value', tasks[getIndex(li)]).prependTo(li);   
+      // check if the span class is already hidden. If not, then enable the edit mode
+      if (!$(li).find("span").hasClass("hidden")) {
+         $(li).find("span").attr("class", "hidden");
+         $(li).find("input").attr("class", "remove hidden");
+         $("<input>").attr("type", "text").attr("class", "edit").attr("value", tasks[ getIndex(li) ]).prependTo(li);
       }
-      
       return li;
    }
 
@@ -93,9 +89,9 @@ var makeController = function(element) {
     * - Returns the list item
     */
    function disableEditMode(li) {
-         $(li).find('input').first().remove();
-         $(li).find('span').removeClass('hidden');
-         $(li).find('input').attr('class', 'remove');
+         $(li).find("input").first().remove();
+         $(li).find("span").removeClass("hidden");
+         $(li).find("input").attr("class", "remove");
          return li;
    }
 
@@ -118,7 +114,7 @@ var makeController = function(element) {
       // Use appropriate append-type jQuery method to add it right after
       // "el"
       button = $('<input type="button" value="New" />');
-      button.insertAfter(el);      
+      button.insertAfter(el);
 
       // Bind clicking of the button to calling the addNewTask function.
       button.click(addNewTask);
@@ -134,7 +130,7 @@ var makeController = function(element) {
     * - Return true to not prevent propagation.
     */
    function addNewTask(ev) {
-      var str = "Task " + (tasks.length+1);
+      var str = "Task " + (tasks.length + 1);
       tasks.push(str);
       $(newTaskHTML(str)).appendTo(el);
       return true;
@@ -151,10 +147,9 @@ var makeController = function(element) {
     */
    function removeElement(ev) {
       var i = getIndex(getLi(ev.target));
-      
-      //removes from tags
+      // removes from tags
       tasks.splice(i, 1);
-      //removes from 'li' list
+      // removes from 'li' list
       $("li").get(i).remove();
 
       return true;
@@ -200,15 +195,16 @@ var makeController = function(element) {
     * - Return true to allow propagation
     */
    function commitEditing(ev) {
-      if (ev.target.parentNode === null) { return true; }
+      if (ev.target.parentNode === null){
+			return true;
+      }
 
       var newValue, li;
-      
-      //change the task value
+      // change the task value
       li = getLi(ev.target);
-      newValue = $(li.find('input')).val();
-      tasks[getIndex(li)] = newValue;
-      $(li.find('span')).html(newValue);
+      newValue = $(li.find("input")).val();
+      tasks[ getIndex(li) ] = newValue;
+      $(li.find("span")).html(newValue);
 
       return true;
    }
@@ -225,7 +221,9 @@ var makeController = function(element) {
     * - Return "false" to prevent propagation in the case of an escape.
     */
    function checkForCancel(ev) {
-      if (ev.keyCode !== 0x1B) { return true; }
+		if (ev.keyCode !== 0x1B){
+			return true;
+		}
 
       disableEditMode(getLi(ev.target));
 
