@@ -41,7 +41,7 @@ var makeController = function(element) {
     * an "input" button for "remove". See examples in sample.html
     */
    function newTaskHTML(str) {
-      return "<li><span>" + str + '</span><input type="button" class="remove" value="Remove"></li>';
+      return "<li><span>" + str + "</span><input type='button' class='remove' value='Remove'></li>";
    }
 
    /*
@@ -75,6 +75,7 @@ var makeController = function(element) {
       if (!$(li).find("span").hasClass("hidden")) {
          $(li).find("span").attr("class", "hidden");
          $(li).find("input").attr("class", "remove hidden");
+         // We could not break down this line of code.
          $("<input>").attr("type", "text").attr("class", "edit").attr("value", tasks[ getIndex(li) ]).prependTo(li);
       }
       return li;
@@ -113,7 +114,7 @@ var makeController = function(element) {
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
       // "el"
-      button = $('<input type="button" value="New" />');
+      button = $("<input type='button' value='New' />");
       button.insertAfter(el);
 
       // Bind clicking of the button to calling the addNewTask function.
