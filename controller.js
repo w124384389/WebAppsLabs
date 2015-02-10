@@ -114,8 +114,13 @@ var makeController = function(element) {
       // Use jQuery syntax to create a new html element
       // Use appropriate append-type jQuery method to add it right after
       // "el"
+<<<<<<< HEAD
       button = $("<input type='button' value='New' />");
       button.insertAfter(el);
+=======
+      button = $('<input>').attr('type','button').attr('value', 'New');
+      button.insertAfter(el);      
+>>>>>>> b5d737da2a3467ecf3362a3e45aba0a01cb3776d
 
       // Bind clicking of the button to calling the addNewTask function.
       button.click(addNewTask);
@@ -196,8 +201,13 @@ var makeController = function(element) {
     * - Return true to allow propagation
     */
    function commitEditing(ev) {
+<<<<<<< HEAD
       if (ev.target.parentNode === null){
 			return true;
+=======
+      if (ev.target.parentNode === null) {
+      	return true;
+>>>>>>> b5d737da2a3467ecf3362a3e45aba0a01cb3776d
       }
 
       var newValue, li;
@@ -222,9 +232,15 @@ var makeController = function(element) {
     * - Return "false" to prevent propagation in the case of an escape.
     */
    function checkForCancel(ev) {
+<<<<<<< HEAD
 		if (ev.keyCode !== 0x1B){
 			return true;
 		}
+=======
+      if (ev.keyCode !== 0x1B) {
+      	return true;
+      }
+>>>>>>> b5d737da2a3467ecf3362a3e45aba0a01cb3776d
 
       disableEditMode(getLi(ev.target));
 
