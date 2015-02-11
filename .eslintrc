@@ -4,7 +4,7 @@
     "node": true
   },
   "rules": {
-     "strict": 1,
+     "strict": 0,
      "quotes": [1, "double"],
      "brace-style": [1, "1tbs"],
      "space-in-brackets": [2, "always"],

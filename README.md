@@ -1,90 +1,116 @@
-# Lab 5, Collections
+# Lab 6, Commands and History
 
-In this lab we will continue building our TODO / TaskList application.
-
-You should have a working version of the Task class from Lab3. This lab assumes that you have such a version in a file named `task.js`. You will need to copy that file over from your Lab3. The following line should accomplish this, do it after you are in the Lab5 branch:
-
-```bash
-git checkout Lab3 -- task.js
-```
+In this lab we will work on creating a command history class that would allow one to implement undo/redo functionality in an application.
 
 Remember that you should always lint your code, and you should NEVER commit something that does not pass the linter on your main code files. (You can choose whether to lint test files or not)
 
 For your convenience, a MAKEFILE is provided:
 
-- Doing `make lint` will run eslint on your collection file.
+- Doing `make lint` will run eslint on your code files.
 - Doing `make lintall` will run eslint on code files and test files.
-- Doing `make testCollection` will run the tests in `collection.spec.js`.
+- Doing `make test` will run the tests in `dllist.spec.js` and `history.spec.js`.
 - Doing `make all` will run lint on your code files, and if they pass it will then run the test files.
 
-There are 2 files that you need to work with:
+There are 4 files that you need to work with:
 
-- `collection.js`: Contains a "class" for managing a "collection of tasks".
-- `collection.spec.js`: Contains tests for the collection class.
+- `dllist.js`: Contains a "class" for double-linked lists.
+- `dllist.spec.js`: Contains tests for the dllist class.
+- `history.js`: Contains a "class" for managing the history.
+- `history.spec.js`: Contains tests for the history class.
 
 We will continue testing from the command line / terminal. You can do
 
 ```
-mocha collection.spec.js
+mocha yourSpecFile
 ```
 or
 ```
-make testCollection
+make test
 ```
 
-## collection.js
+## Commands
 
-This file exports a TaskCollection "class", that implements collections of tasks. This is little more than a wrapper around Javascript arrays, with a more specific interface.
+We first discuss the general idea of the command pattern. You will not need to implement commands in this lab, but these are the objects you will be managing in your collection.
 
-As before, make sure to create issues and make individual commits for each function, and never commit without passing the linter first.
+Commands encapsulate an operation that needs to be performed. This way multiple UI elements could for instance trigger it. Deleting a word in a text for instance, or typing some new test, would all be encapsulated as "commands".
 
-### Properties and construction
+The commands we will imagine at our disposal have a simple form. They are objects with the following properties:
 
-A task collection has a single property, `values`, which must be not writable and initialized to equal an empty array. This array will hold the task objects.
+- **execute**. This is the method someone would call in order to perform the command's task.
+- **unexecute**. This is the method someone would call to undo the command's task. We will assume all methods that land in our history are undoable in this way.
+- **toString**. A textual description of what the command "does".
 
-The TaskCollection object must implement the following constructor:
+The interface is kept simple on purpose, to shield the elements that need to call the command from knowing too much about where it came from and what it entails.
 
-- **TaskCollection.new**: This will be implemented in the function `makeNewCollection`. It must use `Object.create` and possibly `Object.defineProperty` to create a new object with the appropriate properties. It must use `Object.preventExtensions` to prevent later additions to this object, before returning it.
+## Command History
 
-    This constructor takes an optional first parameter, `arr`. If that parameter is provided and is an array, then its elements (and not the array itself) must be used to initialize the `values` property. You will likely want to use one of the prototype methods to add those elements.
+You will work on implementing a command history class.
 
-### Prototype / Instance methods
+- We will maintain the commands in the history as a double-linked list. A part of the assignment will be implementing this structure.
+- Along with the list, we will maintain a reference "current" pointing to the "last executed command".
+    - To "undo", you would unexecute the current command then shift the pointer back.
+    - To "redo" you would shift the pointer forward and execute the command there.
+    - To add a new command, you would add it as the next item on the list at the "current" pointer, and move the pointer there, and effectively eliminating all followup commands (you can't redo them any more if you've now taken a different direction).
 
-These will all go into the `proto` object. It should contain no other properties.
+## Double-Linked Lists
 
-- **length**: Returns the number of tasks currently stored.
-- **isEmpty**: Returns a boolean indicating whether the collection is empty.
-- **get**: Returns a task, given some condition prescribed by the first argument, as described below. It should return `null` if no task satisfies the condition.
+We will implement circular double-linked lists using a "sentinel" to indicate beginning and end. You will work with the `dllist.js` file for this part.
 
-    Takes one argument, which may take several forms (you can assume the argument will be there and will have one of these forms):
-    - It could be a function `f(task)`. `f` should expect to receive a task as the first argument, and it should return a boolean as to whether this task is "acceptable". This method `get` should then return the first task for which the function is `true`.
-    - It could be a number. In this case if there is a task with an `id` equal to that number, then *it* will be returned. (Careful, the number must match the task's id, not its position in the `values` array)
-    - It could be a string. In this case you return the first task, if any, for which the title contains the string.
-    - It could be a regular expression. In this case you return the first task, if any, for which the title matches the regular expression.
+The constructor for list objects has been implemented for you. It creates a "sentinel" property. This is used to indicate both the beginning and ending of the list. It itself is not meant to be a list element, but it is a placeholder that makes a lot of the code implementation easier.
 
-    You may find it helpful to create a private helper function that takes arguments in the same format at `get`, but returns instead the index of the `values` array in which the matched task resides, or `-1` if there isn't any matching task.
+List elements all contain 3 properties:
 
-    You should implement the method as if the first type of argument (a function) is the only one you have to deal with. After that, extend it to all other types by creating a function "turnArgIntoFunc" that turns all those other types of arguments into an appropriate function type.
-- **has**: Behaves exactly like `get`, but returns a boolean indicating whether a task was found, rather than returning the task. This should be very short.
-- **add**: Expects as argument a Task object (no need to check for this). It will add the object to the list, if it does not already exist (don't forget that id's are unique for each task).
+- `value`: contains the actual value that was meant to be stored in the list (in our case these will turn out to be the command objects).
+- `next`: contains a reference to the next item on the list. If this is the last item, it will point to the sentinel. The sentinel's "next" should always point to the first element in the list.
+- `prev`: contains a reference to the previous item on the list. If this is the first item, it will point to the sentinel. The sentinel's "prev" should always point to the last element in the list.
 
-    It may also instead be given as argument an array of task objects. In that case, it should add all the task objects, if they do not already exist in the list. You may find it helpful to use some sort of private "addOneTask" function.
+When you create a new item and try to put it in its place, you will need to set its next and prev pointers, and you will also need to adjust the prev and next pointers of those elements to point back to your element.
 
-    Returns `this` (the collection).
-- **new**: Not to be confused with the class-level method new, nor the Task class's new. Takes no arguments. Creates a new task object (by calling `Task.new`), adds it to the collection, then returns the new task object.
-- **remove**: Expects as argument a single number or array of numbers. It interprets those numbers as the id's of the tasks you want to have removed. Then removes those tasks from the list, if they were present. Returns `this` (the collection).
-- **filter**: Expects its argument in the same formats as `get`, except that in the case of a single number it expects to be provided an array of numbers instead. It returns a *new* TaskCollection containing those tasks that match the criteria (not clones, the tasks themselves; only the collection would be new).
-- **forEach**: Takes as argument a function `f(task)`. It will call the function on each element in its `values` array, passing it the task as the single argument. Returns `this`.
-- **groupByTag**: Takes no arguments. Returns the tasks grouped by tag. Namely the return value should be an object, whose keys are all the different tags of the various tasks in the collection. The value corresponding to a key/tag should be a new TaskCollection containing the tasks that had that key/tag (not clones, the tasks themselves). A task with no keys would not appear at all in this object.
-- **print**: Takes no arguments. Should return a printed representation of the task collection as follows:
-    - It should return a string (not console.logging).
-    - Each task starts on a new line.
-    - The title of a task goes first.
-    - If the task is completed, then after an extra space the completion date should appear in parentheses, in the format "yyyy/mm/dd".
-    - If there are any tags, there should be an extra space and then the tags each prepended by the hash sign (`#`) and with a space inbetween tags.
-    - There should be no extra space after the last tag.
-    - The last task should include a newline at its end.
-    - An empty collection should return an empty string.
+These are the methods you will need to add to the prototype. They are listed in the order you should try to implement them in. In many cases, you can reuse previous methods to get your work done without having to rewrite too much code.
 
-    You will probably want to create a local helper function, "printTask", that is given a task and returns the corresponding string. Then your "print" method can more or less join those strings.
-- **concat**: Takes one or more arguments, that it may assume are TaskCollection objects. It then proceeds to add all their elements to the collection in `this` (the elements themselves, not clones of them). Returns `this`. It should be able to handle an arbitrary number of arguments. It should not alter the passed TaskCollection objects (i.e. they will retain their objects).
+- `isEmpty`: Returns a boolean depending on whether the list is empty (only the sentinel there) or not.
+- `length`: Returns the number of items in the list (not counting the sentinel).
+- `first`: Returns the first item (not the value), if there is one. Throws an exception if the list is empty.
+- `last`: Returns the last item (not the value), if there is one. Throws an exception if the list is empty.
+- `insertAt`: This is the main workhorse for inserting a new item into the list. It takes two arguments: The `value` to be inserted, and an `element` to use as the "previous" item.
+
+    This method needs to create a new item, set its value property, set its prev to the element, its next to that element's successor, and then adjust that element's next pointer and that successor's prev pointer. How to do this correctly will take some thinking if you have never done it before.
+
+    The use of the sentinel element means that you do not need to worry about edge cases where the element is meant to be inserted at the beginning of the list or the end of the list. you can count on there always being a proper "next" pointer and a proper "prev" pointer, they just might happen to be the sentinel. Your algorithm should not need to handle those cases in any special way.
+
+    Returns the newly created item.
+
+    The next two methods should use this to do their work.
+- `unshift`: Takes as argument the value to be inserted. Then adds a new element at the beginning of the list (right after the sentinel). Returns the newly created item.
+- `push`: Takes as argument the value to be inserted. Then adds a new element at the end of the list (right "before" the sentinel). Returns the newly created item.
+- `endAt`: Takes an item as argument. It will "end" the list at that item: That item should have the sentinel as its "next", and the sentinel should point back to that item. All elements "inbetween" that were just bypassed will be garbage-collected and you need not worry about them. Returns the list.
+- `remove`: Takes an item as argument. Removes it from the list, fixing the prev/next links of the elements around it. Returns the value of the removed item. You can reuse it for the next two methods.
+- `pop`: Removes the last item and returns its value. Should throw an exception if the list is empty.
+- `shift`: Removes the first item and returns its value. Should throw an exception if the list is empty.
+- `isFirst`: Given an item as argument, returns "true" if that item is the first item in the list.
+- `isLast`: Given an item as argument, returns "true" if that item is the last item in the list.
+- `iterator`: Returns an "iterator" of the kind we discussed in class. The "Iterator" class has been imported for your convenience. It should iterate over the values stored in the list, not the items themselves. Use it, and its convenience methods, to implement the following methods.
+- `forEach`: Given a function `f`, applies the function to each *value* stored in the list (not the items, the values). Returns the list.
+- `toArray`: Returns an array containing the values stored in the list, in the order they appear in the list.
+- `iterateFrom`: Given a list item as argument, returns an iterator that would start from that item and move forwards till the end of the list.
+- `reverseIterateFrom`: Given a list item as argument, returns an iterator that would start from that item and move backwards till the beginning of the list.
+
+## Command History
+
+A command history maintains a list of "commands" that have been "executed" and/or "unexecuted". A function "mockCommand" is provided in the `history.spec.js` file to help you make fake commands to use for testing.
+
+All your command history needs to know about the "command" objects is that they have an `execute` method, an `unexecute` method, and a `toString` property containing a string value.
+
+You will work with the `history.js` file for this part. The constructor has been implemented for you. A history object contains a DLList instance called "list", whose values are the command objects that have been created so far.
+
+It also contains a "current" property that is meant to point to the item in the list containing the command that is the last to have been executed. The invariant that must be maintained is that the commands in the items from the beginning to the list up to and including "current" have been executed, in that order, while any items that follow "current" correspond to commands that have been "unexecuted" (and thus could in theory be "redone"). If there are no executed commands, "current" must be set to null.
+
+Here are the methods that you need to implement in the history's prototype. It is imperative that in all those methods you only use the DLList interface that you implemented earlier, and never rely on implementation details of DLList.
+
+- `add`: Adds a new command to the history, to immediately follow "current".All the commands that were following "current" must be removed, as they no longer are redoable. Also, the new command needs to be executed (by calling its execute method).
+- `canRedo`: Returns true if there is an item following "current", that could be redone.
+- `canUndo`: Returns true if there is a command that can be "undone".
+- `redo`: Advances "current" to the next item, and executes the command there. Should throw an error if there is no next item.
+- `undo`: Unexecutes the command at "current" and moves "current" back one step. Should throw an error if there is no current item to unexecute.
+- `undoableIterator`: Returns an iterator that visits all the undoable commands, starting from "current" and moving backwards through the history.
+- `redoableIterator`: Returns an iterator that visits all the redoable commands, starting from the one following "current" and moving forwards.

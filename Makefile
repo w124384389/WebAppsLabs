@@ -1,12 +1,10 @@
 lint:
-	eslint collection.js
+	eslint dllist.js history.js
 
 lintall:
-	eslint collection.js collection.spec.js
+	eslint dllist.js dllist.spec.js history.js history.spec.js
 
-testCollection:
-	mocha collection.spec.js
-
-test: testCollection
+test:
+	mocha dllist.spec.js history.spec.js
 
 all: lint test
