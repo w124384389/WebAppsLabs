@@ -33,6 +33,10 @@ function makeNewCollection(arr){
 
 proto = {
    // Add instance methods here
+   length: function() {
+		"use strict";
+		return this.values.length;
+	}
 };
 
 
