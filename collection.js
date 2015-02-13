@@ -14,7 +14,7 @@ Task = require("./task");
 
 function makeNewCollection(arr) {
 
-};
+}
 
 
 /*
@@ -22,9 +22,9 @@ function makeNewCollection(arr) {
  */
 
 proto = {
-   //Add instance methods here
+   // Add instance methods here
 
-}
+};
 
 
 
