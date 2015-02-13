@@ -5,14 +5,24 @@
  */
 
 var TaskCollection, Task, proto;
-
 Task = require("./task");
+
 
 /*
  *       Constructors
  */
+function makeNewCollection(arr){
+	"use strict";
+	var col = Object.create(proto), tasks = [];
+	Object.defineProperty(col, "values", {
+	  enumerable: true,
+	  configurable: true,
+	  writeable: false,
+	  value: tasks
 
-function makeNewCollection(arr) {
+	});
+
+	return Object.preventExtensions(col);
 
 }
 
@@ -23,7 +33,6 @@ function makeNewCollection(arr) {
 
 proto = {
    // Add instance methods here
-
 };
 
 
