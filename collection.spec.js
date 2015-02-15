@@ -52,4 +52,13 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.get("Two").title).to.equal("Two");
 	});
+	it('get returns the task that the ID is a number', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.get(7).id).to.equal(7);
+	});
 });
