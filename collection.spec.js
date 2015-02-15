@@ -99,4 +99,7 @@ describe('TaskCollection methods', function(){
 		];
 		expect(col.add(t).length()).to.equal(3);
 	});
+	it('new returns the new empty task', function() {
+		expect(col.new().id).to.equal(22);
+	});
 });
