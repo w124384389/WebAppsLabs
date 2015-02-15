@@ -132,7 +132,15 @@ proto = {
 			}
 		}
 		return newCol;
-	}
+	},
+	forEach: function(f) {
+		"use strict";
+		var i;
+		for (i = f.length - 1; i >= 0; i -= 1) {
+			f(this.values[ i ]);
+		}
+		return this;
+   }
 };
 
 
