@@ -104,6 +104,21 @@ proto = {
 		var t = Task.new();
 		this.add(t);
 		return t;
+	},
+	remove: function(id) {
+		"use strict";
+		var i;
+		if (Array.isArray(id)) {
+			for (i = id.length - 1; i >= 0; i -= 1) {
+				if (searchInTasks(id[ i ], this.values) !== -1) {
+					this.values.splice(i, 1);
+				}
+			}
+		} else {
+			i = searchInTasks(id, this.values);
+			this.values.splice(i, 1);
+		}
+		return this;
 	}
 };
 
