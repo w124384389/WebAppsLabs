@@ -59,7 +59,9 @@ describe('TaskCollection methods', function(){
 			Task.fromString("Three #first"),
 		];
 		col.add(t);
-		expect(col.get(7).id).to.equal(7);
+		for (var i = t.length - 1; i >= 0 ; i -= 1) {
+			expect(col.get(t[i].id).id).to.equal(t[i].id);
+		}
 	});
 	it('get returns the task that accepts a function', function() {
 		var t = [

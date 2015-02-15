@@ -11,43 +11,44 @@ Task = require("./task");
 // Use it in makeTaskFromString
 function searchInTasks(t, arr) {
 	"use strict";
-	var i, found = -1;
+	var i, func;
+	func = turnArgIntoFunc(t);
+
 	for (i = arr.length - 1; i >= 0; i -= 1) {
-		if (t instanceof RegExp) {
-			if (arr[ i ].title.match(t) != null) {
-				found = i;
-				break;
-			}
-		} else {
-			switch (typeof t) {
-				case "string":
-					if (arr[ i ].title === t) {
-						found = i;
-						break;
-					}
-					break;
-				case "function":
-					if (t(arr[ i ])) {
-						found = i;
-						break;
-					}
-					break;
-				case "number":
-					if (arr[ i ].id === t) {
-						found = i;
-						break;
-					}
-					break;
-			}
+		if (func(arr[ i ])) {
+			break;
 		}
 	}
-	return found;
+
+	return i === arr.length ? -1 : i;
+}
+
+function turnArgIntoFunc(t) {
+	"use strict";
+	if (t instanceof RegExp) {
+		return function(item) {
+			return item.title.match(t) != null;
+		};
+	}
+
+	switch (typeof t) {
+	case "string":
+		return function(item) {
+			return item.title === t;
+		};
+	case "function":
+		return t;
+	case "number":
+		return function(item) {
+			return item.id === t;
+		};
+	}
 }
 
 /*
  *       Constructors
  */
-function makeNewCollection(arr){
+ function makeNewCollection(arr) {
 	"use strict";
 	var col = Object.create(proto), tasks = [];
 	Object.defineProperty(col, "values", {
@@ -55,11 +56,9 @@ function makeNewCollection(arr){
 	  configurable: true,
 	  writeable: false,
 	  value: tasks
-
 	});
 
 	return Object.preventExtensions(col);
-
 }
 
 
