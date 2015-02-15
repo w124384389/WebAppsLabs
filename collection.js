@@ -119,6 +119,19 @@ proto = {
 			this.values.splice(i, 1);
 		}
 		return this;
+	},
+	filter: function(id) {
+		"use strict";
+		var i, newCol = TaskCollection.new();
+		if (Array.isArray(id)) {
+			for (i = id.length - 1; i >= 0; i -= 1) {
+				if (searchInTasks(id[ i ], this.values) !== -1) {
+					newCol.add(this.values[ i ]);
+					continue;
+				}
+			}
+		}
+		return newCol;
 	}
 };
 
