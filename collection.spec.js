@@ -16,3 +16,11 @@ describe('Your code for task collection', function(){
 		expect(function(){TaskCollection;}).to.not.throw(Error);
 	});
 });
+
+describe('Your makeNewCollection function', function(){
+	var col = TaskCollection.new();
+
+	it('returns an object', function() {
+		expect(col).to.be. a('object');
+	});
+});
