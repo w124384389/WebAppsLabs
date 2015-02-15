@@ -91,4 +91,12 @@ describe('TaskCollection methods', function(){
 	it('add returns the collection when the task is added.', function() {
 		expect(col.add(Task.new())).to.equal(col);
 	});
+	it('add returns the collection when added several tasks.', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+		];
+		expect(col.add(t).length()).to.equal(3);
+	});
 });
