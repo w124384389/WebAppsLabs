@@ -43,4 +43,13 @@ describe('TaskCollection methods', function(){
 	it('isEmpty returns true when the collection is empty.', function() {
 		expect(col.isEmpty()).to.equal(true);
 	});
+	it('get returns the task that the title is a string', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.get("Two").title).to.equal("Two");
+	});
 });
