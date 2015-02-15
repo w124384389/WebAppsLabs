@@ -70,4 +70,13 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.get(function(task) { return task.hasTag("third") }).title).to.equal("Two");
 	});
+	it('get returns the task that the title is a regular expression', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("12345 #first #second"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.get(/\d/).title).to.equal("12345");
+	});
 });
