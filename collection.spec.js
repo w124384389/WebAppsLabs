@@ -61,4 +61,13 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.get(7).id).to.equal(7);
 	});
+	it('get returns the task that accepts a function', function() {
+		var t = [
+			Task.fromString("One #first #second"),
+			Task.fromString("Two #first #second #third"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.get(function(task) { return task.hasTag("third") }).title).to.equal("Two");
+	});
 });
