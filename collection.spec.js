@@ -23,4 +23,9 @@ describe('Your makeNewCollection function', function(){
 	it('returns an object', function() {
 		expect(col).to.be. a('object');
 	});
+	it('returns an object with methods length, isEmpty, get, has, add, new, remove, filter, forEach', function() {
+		['length', 'isEmpty', 'get', 'has', 'add', 'new', 'remove', 'filter', 'forEach'].forEach(function(key) {
+			expect(col[key]).to.be.a('function');
+		});
+	});
 });
