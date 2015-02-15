@@ -133,4 +133,13 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.filter([32,33]).length()).to.equal(2);
 	});
+	it('forEach returns the collection', function() {
+		var t = [
+			Task.fromString("One #first #second"),
+			Task.fromString("Two #first #second #third"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.forEach(function(task) { task.title = "whoa!" }).get("whoa!").title).to.equal("whoa!");
+	});
 });
