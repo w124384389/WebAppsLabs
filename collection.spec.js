@@ -160,7 +160,7 @@ describe('TaskCollection methods', function(){
 		expect(col.print(col)).to.equal("");
 	});
 
-	it.only('concat contains all the tasks from the collections passed as arguments', function() {
+	it('concat contains all the tasks from the collections passed as arguments', function() {
 		var t = [
 			Task.fromString("One #first #second"),
 			Task.fromString("Two #first #second #third"),
@@ -185,5 +185,17 @@ describe('TaskCollection methods', function(){
 		expect(col.values.length).to.equal(8);
 		expect(col.values[5].title).to.equal("Six");
 
+	});
+	it.only('groupByTag returns the tasks grouped by tag', function() {
+		var t = [
+			Task.fromString("One #first #second"),
+			Task.fromString("Two #first #second #third"),
+			Task.fromString("Three #first"),
+			Task.fromString("Six #second"),
+			Task.fromString("Seven #second #fourth #fifth #sixth #seventh"),
+			Task.fromString("Eight #first #third")
+		];
+		col.add(t);
+		expect(col.groupByTag()["third"].values.length).to.equal(2);
 	});
 });

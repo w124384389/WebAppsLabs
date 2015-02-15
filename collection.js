@@ -162,13 +162,28 @@ proto = {
 
 		return str;
 	},
-		concat: function(){
-			"use strict";
-			var i;
-			for (i = 0; i < arguments.length ; i += 1) {
-				this.add(arguments[ i ].values);
-			}
+	concat: function(){
+		"use strict";
+		var i;
+		for (i = 0; i < arguments.length ; i += 1) {
+			this.add(arguments[ i ].values);
 		}
+	},
+	groupByTag: function(){
+		"use strict";
+		var o = {}, i;
+		this.forEach(function(task){
+			for (i = 0; i < task.tags.length; i += 1) {
+				// If there is no tag yet, add it and initialize the TaskCollection
+				if (!o.hasOwnProperty(task.tags[ i ])){
+					o[ task.tags[ i ] ] = TaskCollection.new();
+				}
+				// Add the task to the current property
+				o[ task.tags[ i ] ].add(task);
+			}
+		});
+		return o;
+	}
 };
 
 
