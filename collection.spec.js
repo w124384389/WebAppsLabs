@@ -168,6 +168,8 @@ describe('TaskCollection methods', function(){
 		];
 		col.add(t);
 		var c2, c3;
+		c2= TaskCollection.new();
+		c3= TaskCollection.new();
 		t = [
 			Task.fromString("Four #second"),
 			Task.fromString("Five #first #third")
@@ -181,5 +183,7 @@ describe('TaskCollection methods', function(){
 		c3.add(t);
 		col.concat(c2, c3);
 		expect(col.values.length).to.equal(8);
+		expect(col.values[5].title).to.equal("Six");
+
 	});
 });

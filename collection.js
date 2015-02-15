@@ -161,7 +161,14 @@ proto = {
 		});
 
 		return str;
-	}
+	},
+		concat: function(){
+			"use strict";
+			var i;
+			for (i = 0; i < arguments.length ; i += 1) {
+				this.add(arguments[ i ].values);
+			}
+		}
 };
 
 
