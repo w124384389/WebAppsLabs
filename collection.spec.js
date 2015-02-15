@@ -29,3 +29,15 @@ describe('Your makeNewCollection function', function(){
 		});
 	});
 });
+describe('TaskCollection methods', function(){
+	var col;
+
+	beforeEach(function() {
+		col = TaskCollection.new();
+	})
+
+	it('length returns the number of tasks currently stored.', function() {
+		col.add(Task.new()).add(Task.new());
+		expect(col.length()).to.equal(2);
+	});
+});
