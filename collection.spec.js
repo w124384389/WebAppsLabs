@@ -111,4 +111,15 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.remove(1).length()).to.equal(2);
 	});
+	it('remove returns the collection when removes multiple tasks by IDs', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+			Task.fromString("Four #fifth"),
+			Task.fromString("Five #first"),
+		];
+		col.add(t);
+		expect(col.remove([26,29]).length()).to.equal(3);
+	});
 });
