@@ -98,6 +98,12 @@ proto = {
 		}
 
 		return this;
+	},
+	new: function() {
+		"use strict";
+		var t = Task.new();
+		this.add(t);
+		return t;
 	}
 };
 
