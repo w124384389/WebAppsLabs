@@ -88,4 +88,7 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.has(16)).to.equal(true);
 	});
+	it('add returns the collection when the task is added.', function() {
+		expect(col.add(Task.new())).to.equal(col);
+	});
 });
