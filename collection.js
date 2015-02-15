@@ -81,6 +81,9 @@ proto = {
 		"use strict";
 		var i = searchInTasks(arg, this.values);
 		return i === -1 ? null : this.values[ i ];
+	},
+	has: function(arg) {
+		return !(searchInTasks(arg, this.values) === -1);
 	}
 };
 
