@@ -79,4 +79,13 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.get(/\d/).title).to.equal("12345");
 	});
+	it('has returns true if the task is in the collection.', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.has(16)).to.equal(true);
+	});
 });
