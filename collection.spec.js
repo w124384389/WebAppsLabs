@@ -156,7 +156,30 @@ describe('TaskCollection methods', function(){
 		expect(col.print()).to.equal("One #first #second\nTwo #first #second #third (2015/02/15)\nThree #first\n");
 	});
 
-	it.only('print returns an empty string', function() {
+	it('print returns an empty string', function() {
 		expect(col.print(col)).to.equal("");
+	});
+
+	it.only('concat contains all the tasks from the collections passed as arguments', function() {
+		var t = [
+			Task.fromString("One #first #second"),
+			Task.fromString("Two #first #second #third"),
+			Task.fromString("Three #first")
+		];
+		col.add(t);
+		var c2, c3;
+		t = [
+			Task.fromString("Four #second"),
+			Task.fromString("Five #first #third")
+		];
+		c2.add(t);
+		t = [
+			Task.fromString("Six #second"),
+			Task.fromString("Seven #second #fourth #fifth #sixth #seventh"),
+			Task.fromString("Eight #first #third")
+		];
+		c3.add(t);
+		col.concat(c2, c3);
+		expect(col.values.length).to.equal(8);
 	});
 });

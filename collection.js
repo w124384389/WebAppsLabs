@@ -159,7 +159,7 @@ proto = {
 			}
 			str += "\n";
 		});
-		console.log(str);
+
 		return str;
 	}
 };

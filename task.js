@@ -176,7 +176,7 @@ proto = {
       clonedTask.title = this.title;
       clonedTask.completedTime = this.completedTime;
       clonedTask.tags = this.tags.slice(0);
-      return this;
+      return clonedTask;
    }
 };
 
