@@ -40,4 +40,7 @@ describe('TaskCollection methods', function(){
 		col.add(Task.new()).add(Task.new());
 		expect(col.length()).to.equal(2);
 	});
+	it('isEmpty returns true when the collection is empty.', function() {
+		expect(col.isEmpty()).to.equal(true);
+	});
 });
