@@ -122,4 +122,15 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.remove([26,29]).length()).to.equal(3);
 	});
+	it('filter returns a new TaskCollection that contains the tasks that match the arguments ', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+			Task.fromString("Four #fifth"),
+			Task.fromString("Five #first"),
+		];
+		col.add(t);
+		expect(col.filter([32,33]).length()).to.equal(2);
+	});
 });
