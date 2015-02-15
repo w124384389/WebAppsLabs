@@ -102,4 +102,13 @@ describe('TaskCollection methods', function(){
 	it('new returns the new empty task', function() {
 		expect(col.new().id).to.equal(22);
 	});
+	it('remove returns the collection when removes one task by ID', function() {
+		var t = [
+			Task.fromString("One #first #second #third"),
+			Task.fromString("Two #first #second"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		expect(col.remove(1).length()).to.equal(2);
+	});
 });
