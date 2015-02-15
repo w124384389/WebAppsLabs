@@ -135,11 +135,33 @@ proto = {
 	forEach: function(f) {
 		"use strict";
 		var i;
-		for (i = f.length - 1; i >= 0; i -= 1) {
+		for (i = this.values.length - 1; i >= 0; i -= 1) {
 			f(this.values[ i ]);
 		}
 		return this;
-   }
+	},
+	print: function() {
+		"use strict";
+		var str = "";
+
+		if (this.values.length === 0) {
+			return "";
+		}
+
+		this.forEach(function(task) {
+			var i;
+			str += task.title;
+			for (i = task.tags.length - 1; i >= 0; i -= 1) {
+				str += " #" + task.tags[ i ];
+			}
+			if (task.isCompleted()) {
+				str += " (" + task.completedTime.toISOString().slice(0, 10).replace(/-/g, "/") + ")";
+			}
+			str += "\n";
+		});
+		console.log(str);
+		return str;
+	}
 };
 
 

@@ -144,4 +144,19 @@ describe('TaskCollection methods', function(){
 		col.add(t);
 		expect(col.forEach(function(task) { task.title = "whoa!" }).get("whoa!").title).to.equal("whoa!");
 	});
+
+	it('print returns a string with all the collection data', function() {
+		var t = [
+			Task.fromString("One #first #second"),
+			Task.fromString("Two #first #second #third"),
+			Task.fromString("Three #first"),
+		];
+		col.add(t);
+		col.values[1].toggleCompleted();
+		expect(col.print()).to.equal("One #first #second\nTwo #first #second #third (2015/02/15)\nThree #first\n");
+	});
+
+	it.only('print returns an empty string', function() {
+		expect(col.print(col)).to.equal("");
+	});
 });
