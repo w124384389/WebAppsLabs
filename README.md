@@ -52,7 +52,9 @@ You will work on implementing a command history class.
     - To "redo" you would shift the pointer forward and execute the command there.
     - To add a new command, you would add it as the next item on the list at the "current" pointer, and move the pointer there, and effectively eliminating all followup commands (you can't redo them any more if you've now taken a different direction).
 
-## Double-Linked Lists
+## Implementation
+
+### Double-Linked Lists
 
 We will implement circular double-linked lists using a "sentinel" to indicate beginning and end. You will work with the `dllist.js` file for this part.
 
@@ -95,7 +97,7 @@ These are the methods you will need to add to the prototype. They are listed in 
 - `iterateFrom`: Given a list item as argument, returns an iterator that would start from that item and move forwards till the end of the list.
 - `reverseIterateFrom`: Given a list item as argument, returns an iterator that would start from that item and move backwards till the beginning of the list.
 
-## Command History
+### Command History
 
 A command history maintains a list of "commands" that have been "executed" and/or "unexecuted". A function "mockCommand" is provided in the `history.spec.js` file to help you make fake commands to use for testing.
 
