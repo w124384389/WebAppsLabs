@@ -29,3 +29,15 @@ describe('Your makeNewList function', function(){
 		});
 	});
 });
+
+describe('DLList methods', function(){
+	var list;
+
+	beforeEach(function() {
+		list = DLList.new();
+	})
+
+	it('isEmpty returns true when the list next is self sentinel.', function() {
+		expect(list.isEmpty()).to.equal(true);
+	});
+});
