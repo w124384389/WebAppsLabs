@@ -32,7 +32,60 @@ function makeNewList() {
 
 proto = {
    // Add instance methods here
+   isEmpty : function() {
 
+   },
+   length : function() {
+
+   },
+   first : function() {
+
+   },
+   last : function() {
+
+   },
+   insertAt : function() {
+
+   },
+   unshift : function() {
+
+   },
+   push : function() {
+
+   },
+   endAt : function() {
+
+   },
+   remove : function() {
+
+   },
+   pop : function() {
+
+   },
+   shift : function() {
+
+   },
+   isFirst : function() {
+
+   },
+   isLast : function() {
+
+   },
+   iterator : function() {
+
+   },
+   forEach : function() {
+
+   },
+   toArray : function() {
+
+   },
+   iterateFrom : function() {
+
+   },
+   reverseIterateFrom : function() {
+
+   },
 };
 
 
