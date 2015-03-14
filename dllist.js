@@ -70,14 +70,19 @@ proto = {
    endAt : function() {
 
    },
-   remove : function() {
-
+   remove : function(item) {
+      item.prev.next = item.next;
+      item.next.prev = item.prev;
+      this.len -= 1;
+      return item.value;
    },
    pop : function() {
-
+      if (this.length() === 0) throw new Error('The element couldn`t being removed. List is empty.');
+      return this.remove(this.sentinel.prev);
    },
    shift : function() {
-
+      if (this.length() === 0) throw new Error('The element couldn`t being removed. List is empty.');
+      return this.remove(this.sentinel.next);
    },
    isFirst : function() {
 

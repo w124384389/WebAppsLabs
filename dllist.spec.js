@@ -54,8 +54,28 @@ describe('DLList methods', function(){
 		var item = list.insertAt(10, list.sentinel);
 		expect(list.unshift(5).next).to.equal(item);
 	});
-	it.only('push returns an element with the next pointed to the sentinel.', function() {
+	it('push returns an element with the next pointed to the sentinel.', function() {
 		var item = list.insertAt(10, list.sentinel);
 		expect(list.push(5).next).to.equal(list.sentinel);
+	});
+	it('remove returns the removed value once it was inserted in the list.', function() {
+		var item;
+		list.insertAt(10, list.sentinel);
+		list.insertAt(5, list.sentinel);
+		item = list.insertAt(8, list.sentinel);
+		list.insertAt(12, list.sentinel);
+		expect(list.remove(item)).to.equal(8);
+	});
+	it('pops removes the last element and returns its value.', function() {
+		list.push(10);
+		list.push(5);
+		list.push(8);
+		expect(list.pop()).to.equal(8);
+	});
+	it.only('shift removes the first element and returns its value.', function() {
+		list.push(10);
+		list.push(5);
+		list.unshift(8);
+		expect(list.shift()).to.equal(8);
 	});
 });
