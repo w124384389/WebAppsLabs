@@ -6,7 +6,7 @@
 
 var Iterator, DLList, proto;
 
-Iterator = require("./iterator");
+Iterator = require("./iterator.js");
 
 /*
  *       Constructors
@@ -22,7 +22,6 @@ function makeNewList() {
    sentinel.next = sentinel;
    sentinel.prev = sentinel;
    lst.sentinel = sentinel;
-   lst.len = 0;
    return lst;
 }
 
@@ -37,7 +36,13 @@ proto = {
       return this.sentinel.next == this.sentinel.prev;
    },
    length : function() {
-      return this.len;
+      var count = 0, item = this.sentinel;
+
+      while (item.next !== this.sentinel) {
+         count += 1;
+         item = item.next;
+      }
+      return count;
    },
    first : function() {
 
@@ -47,7 +52,7 @@ proto = {
    },
    insertAt : function(value, element) {
       var item = {};
-      
+
       //Set the new item prev and next
       item.value = value;
       item.next = element.next;
@@ -56,9 +61,6 @@ proto = {
       item.next.prev = item;
       //set the previous element next to the item
       element.next = item;
-
-      this.len += 1;
-
       return item;
    },
    unshift : function(value) {
@@ -67,13 +69,14 @@ proto = {
    push : function(value) {
       return this.insertAt(value, this.sentinel.prev);
    },
-   endAt : function() {
-
+   endAt : function(item) {
+      item.next = this.sentinel;
+      this.sentinel.prev = item;
+      return this;
    },
    remove : function(item) {
       item.prev.next = item.next;
       item.next.prev = item.prev;
-      this.len -= 1;
       return item.value;
    },
    pop : function() {
@@ -84,26 +87,41 @@ proto = {
       if (this.length() === 0) throw new Error('The element couldn`t being removed. List is empty.');
       return this.remove(this.sentinel.next);
    },
-   isFirst : function() {
-
+   isFirst : function(item) {
+      return this.sentinel.next === item;
    },
-   isLast : function() {
-
+   isLast : function(item) {
+      return this.sentinel.prev === item;
    },
    iterator : function() {
-
+      var item = this.sentinel, that = this;
+      return Iterator.new(
+         function (){ item = item.next; return item; },
+         function (){ return item.next !== that.sentinel; }
+      );
    },
-   forEach : function() {
-
+   forEach : function(f) {
+      this.iterator().forEach(f);
+      return this;
    },
    toArray : function() {
-
+      var arr = [];
+      this.forEach(function (item) { arr.push(item.value); });
+      return arr;
    },
-   iterateFrom : function() {
-
+   iterateFrom : function(item) {
+      item = item.prev, that = this;
+      return Iterator.new(
+         function (){ item = item.next; return item; },
+         function (){ return item.next !== that.sentinel; }
+      );
    },
-   reverseIterateFrom : function() {
-
+   reverseIterateFrom : function(item) {
+      item = item.next, that = this;
+      return Iterator.new(
+         function (){ item = item.prev; return item; },
+         function (){ return item.prev !== that.sentinel; }
+      );
    },
 };
 
