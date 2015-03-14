@@ -16,12 +16,13 @@ function makeNewList() {
    var lst, sentinel;
 
    lst = Object.create(proto);
-   sentinel = {
-      value: null,
-      next: sentinel,
-      prev: sentinel
+   sentinel = { 
+      value: null
    };
+   sentinel.next = sentinel;
+   sentinel.prev = sentinel;
    lst.sentinel = sentinel;
+   lst.len = 0;
    return lst;
 }
 
@@ -36,7 +37,7 @@ proto = {
       return this.sentinel.next == this.sentinel.prev;
    },
    length : function() {
-
+      return this.len;
    },
    first : function() {
 
@@ -44,14 +45,27 @@ proto = {
    last : function() {
 
    },
-   insertAt : function() {
+   insertAt : function(value, element) {
+      var item = {};
+      
+      //Set the new item prev and next
+      item.value = value;
+      item.next = element.next;
+      item.prev = element;
+      //set the next element prev to the item
+      item.next.prev = item;
+      //set the previous element next to the item
+      element.next = item;
 
+      this.len += 1;
+
+      return item;
    },
-   unshift : function() {
-
+   unshift : function(value) {
+      return this.insertAt(value, this.sentinel);
    },
-   push : function() {
-
+   push : function(value) {
+      return this.insertAt(value, this.sentinel.prev);
    },
    endAt : function() {
 
