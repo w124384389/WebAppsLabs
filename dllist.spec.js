@@ -122,12 +122,24 @@ describe('DLList methods', function(){
 		list.push(14);
 		expect(list.iterateFrom(item).toArray().length).to.equal(2);
 	});
-	it.only('reverseIterateFrom returns an iterator starting from the item passed as argument until the first item of list.', function() {
+	it('reverseIterateFrom returns an iterator starting from the item passed as argument until the first item of list.', function() {
 		var item;
 		list.push(10);
 		list.push(35);
 		item = list.push(7);
 		list.push(14);
 		expect(list.reverseIterateFrom(item).toArray().length).to.equal(3);
+	});
+	it('first returns the first item of the list.', function() {
+		list.push(10);
+		list.push(35);
+		list.push(14);
+		expect(list.first().value).to.equal(10);
+	});
+	it('last returns the last item of the list.', function() {
+		list.push(10);
+		list.push(35);
+		list.push(14);
+		expect(list.last().value).to.equal(14);
 	});
 });

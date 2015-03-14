@@ -16,7 +16,7 @@ function makeNewList() {
    var lst, sentinel;
 
    lst = Object.create(proto);
-   sentinel = { 
+   sentinel = {
       value: null
    };
    sentinel.next = sentinel;
@@ -32,10 +32,10 @@ function makeNewList() {
 
 proto = {
    // Add instance methods here
-   isEmpty : function() {
-      return this.sentinel.next == this.sentinel.prev;
+   isEmpty: function() {
+      return this.sentinel.next === this.sentinel.prev;
    },
-   length : function() {
+   length: function() {
       var count = 0, item = this.sentinel;
 
       while (item.next !== this.sentinel) {
@@ -44,85 +44,109 @@ proto = {
       }
       return count;
    },
-   first : function() {
-
+   first: function() {
+      if (this.length() === 0) {
+		throw new Error("List is empty.");
+      }
+      return this.sentinel.next;
    },
-   last : function() {
-
+   last: function() {
+		if (this.length() === 0) {
+			throw new Error("List is empty.");
+		}
+		return this.sentinel.prev;
    },
-   insertAt : function(value, element) {
+   insertAt: function(value, element) {
       var item = {};
 
-      //Set the new item prev and next
+      // Set the new item prev and next
       item.value = value;
       item.next = element.next;
       item.prev = element;
-      //set the next element prev to the item
+      // set the next element prev to the item
       item.next.prev = item;
-      //set the previous element next to the item
+      // set the previous element next to the item
       element.next = item;
       return item;
    },
-   unshift : function(value) {
+   unshift: function(value) {
       return this.insertAt(value, this.sentinel);
    },
-   push : function(value) {
+   push: function(value) {
       return this.insertAt(value, this.sentinel.prev);
    },
-   endAt : function(item) {
+   endAt: function(item) {
       item.next = this.sentinel;
       this.sentinel.prev = item;
       return this;
    },
-   remove : function(item) {
+   remove: function(item) {
       item.prev.next = item.next;
       item.next.prev = item.prev;
       return item.value;
    },
-   pop : function() {
-      if (this.length() === 0) throw new Error('The element couldn`t being removed. List is empty.');
+   pop: function() {
+      if (this.length() === 0) {
+			throw new Error("The element couldn`t being removed. List is empty.");
+      }
       return this.remove(this.sentinel.prev);
    },
-   shift : function() {
-      if (this.length() === 0) throw new Error('The element couldn`t being removed. List is empty.');
+   shift: function() {
+      if (this.length() === 0) {
+			throw new Error("The element couldn`t being removed. List is empty.");
+      }
       return this.remove(this.sentinel.next);
    },
-   isFirst : function(item) {
+   isFirst: function(item) {
       return this.sentinel.next === item;
    },
-   isLast : function(item) {
+   isLast: function(item) {
       return this.sentinel.prev === item;
    },
-   iterator : function() {
+   iterator: function() {
       var item = this.sentinel, that = this;
       return Iterator.new(
-         function (){ item = item.next; return item; },
-         function (){ return item.next !== that.sentinel; }
+         function (){
+				item = item.next; return item;
+         },
+         function (){
+				return item.next !== that.sentinel;
+         }
       );
    },
-   forEach : function(f) {
+   forEach: function(f) {
       this.iterator().forEach(f);
       return this;
    },
-   toArray : function() {
+   toArray: function() {
       var arr = [];
-      this.forEach(function (item) { arr.push(item.value); });
+      this.forEach(function (item) {
+			arr.push(item.value);
+      });
       return arr;
    },
-   iterateFrom : function(item) {
-      item = item.prev, that = this;
+   iterateFrom: function(item) {
+      var it = item.prev, that = this;
       return Iterator.new(
-         function (){ item = item.next; return item; },
-         function (){ return item.next !== that.sentinel; }
+         function (){
+				it = it.next; return it;
+         },
+         function (){
+				return it.next !== that.sentinel;
+         }
       );
    },
-   reverseIterateFrom : function(item) {
-      item = item.next, that = this;
+   reverseIterateFrom: function(item) {
+      var it = item.next, that = this;
       return Iterator.new(
-         function (){ item = item.prev; return item; },
-         function (){ return item.prev !== that.sentinel; }
+         function (){
+				it = it.prev; return it;
+         },
+         function (){
+				return it.prev !== that.sentinel;
+         }
       );
-   },
+   }
 };
 
 
