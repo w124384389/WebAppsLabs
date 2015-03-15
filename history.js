@@ -30,12 +30,12 @@ proto = {
    add: function(){
 		var item = {};
 
-		this.current.next = item;
+		//item = this.current.next;
 		item.prev = this.current;
 		item.next = null;
-		item.execute();
+		return item;
    },
-   canRedo: function(){
+	canRedo: function(){
 		if (this.current.next !== null){
 			return true;
 		}
