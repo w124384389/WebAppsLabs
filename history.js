@@ -26,6 +26,27 @@ function makeNewHistory() {
 
 proto = {
    // Add instance methods here
+   add: function(){
+
+   },
+   canRedo: function(){
+
+   },
+   canUndo: function(){
+
+   },
+   redo: function(){
+
+   },
+   undo: function(){
+
+   },
+   undoableIterator: function(){
+
+   },
+   redoableIterator: function(){
+
+   }
 
 };
 
