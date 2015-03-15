@@ -29,3 +29,21 @@ function mockCommand() {
 }
 
 // ADD YOUR TESTS HERE
+describe('Your code for history', function(){
+	it('defines a variable CmdHistory', function(){
+		expect(function(){CmdHistory;}).to.not.throw(Error);
+	});
+})
+
+describe('Your makeNewHistory function', function(){
+	var list = CmdHistory.new();
+
+	it('returns an object', function() {
+		expect(list).to.be.a('object');
+	});
+	it('returns an object with methods add, canRedo, canUndo, redo, undo, undoableIterator, redoableIterator', function() {
+		['add', 'canRedo', 'canUndo', 'redo', 'undo', 'undoableIterator', 'redoableIterator'].forEach(function(key) {
+			expect(list[key]).to.be.a('function');
+		});
+	});
+});
