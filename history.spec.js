@@ -36,48 +36,76 @@ describe('Your code for history', function(){
 })
 
 describe('Your makeNewHistory function', function(){
-	var list = CmdHistory.new();
+	var cmdHist = CmdHistory.new();
 
 	it('returns an object', function() {
-		expect(list).to.be.a('object');
+		expect(cmdHist).to.be.a('object');
 	});
 	it('returns an object with methods add, canRedo, canUndo, redo, undo, undoableIterator, redoableIterator', function() {
 		['add', 'canRedo', 'canUndo', 'redo', 'undo', 'undoableIterator', 'redoableIterator'].forEach(function(key) {
-			expect(list[key]).to.be.a('function');
+			expect(cmdHist[key]).to.be.a('function');
 		});
 	});
 });
 describe('CmdHistory methods', function(){
-	var list;
+	var cmdHist;
 
 	beforeEach(function() {
-		list = CmdHistory.new();
+		cmdHist = CmdHistory.new();
 	})
 
 	it('add adds a new command to the history following by current, execute the new command', function() {
-		expect(list.add()).to.equal();
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		console.log(Log.get());
 	});
-
-
-
-	// it('canRedo Returns true if there is an item following "current"', function() {
-	// 	expect(list.canRedo).to.equal(true);
-	// });
-
-	// it('canUndo Returns true if there is a command that can be "undone"', function() {
-	// 	expect(list.add()).to.equal();
-	// });
-	// it('redo Advances "current" to the next item, and executes the command there', function() {
-	// 	expect(list.add()).to.equal();
-	// });
-
-	// it('undo  Unexecutes the command at "current" and moves "current" back one step"', function() {
-	// 	expect(list.add()).to.equal();
-	// });
-	// it('undoableIterator Returns an iterator that visits all the undoable commands, starting from "current" and moving backwards through the history.', function() {
-	// 	expect(list.add()).to.equal();
-	// });
-	// it('redoableIterator Returns an iterator that visits all the redoable commands, starting from the one following "current" and moving forwards.', function() {
-	// 	expect(list.add()).to.equal();
-	// });
+	it('canRedo Returns true if there is an item following "current"', function() {
+		cmdHist.add(mockCommand());
+		expect(cmdHist.canRedo()).to.equal(false);
+	});
+	it('canUndo Returns true if there is a command that can be "undone"', function() {
+		cmdHist.add(mockCommand());
+		expect(cmdHist.canUndo()).to.equal(true);
+	});
+	it('redo Advances "current" to the next item, and executes the command there', function() {
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.undo();
+		cmdHist.undo();
+		cmdHist.redo();
+		console.log(Log.get());
+	});
+	it('undo  Unexecutes the command at "current" and moves "current" back one step"', function() {
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.undo();
+		cmdHist.current.value.execute()
+		console.log(Log.get());
+	});
+	it('undoableIterator Returns an iterator that visits all the undoable commands, starting from "current" and moving backwards through the history.', function() {
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.undo();
+		cmdHist.undo();
+		expect(cmdHist.undoableIterator().toArray().length).to.equal(4);
+	});
+	it('redoableIterator Returns an iterator that visits all the redoable commands, starting from the one following "current" and moving forwards.', function() {
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.add(mockCommand());
+		cmdHist.undo();
+		cmdHist.undo();
+		expect(cmdHist.redoableIterator().toArray().length).to.equal(3);
+	});
 });

@@ -27,65 +27,42 @@ function makeNewHistory() {
 
 proto = {
    // Add instance methods here
-   add: function(){
-		var item = {};
+	add: function(command){
+		var item;
 
-		//item = this.current.next;
-		item.prev = this.current;
-		item.next = null;
-		return item;
+		item = this.list.insertAt(command, this.current !== null ? this.current : this.list.sentinel);		
+   		this.current = item;
+   		this.list.endAt(this.current);
+   		eval(this.current);
+   		this.current.value.execute();
    },
 	canRedo: function(){
-		if (this.current.next !== null){
-			return true;
-		}
-		return false;
+		return this.current.next !== this.list.sentinel;
 	},
    canUndo: function(){
-		if (this.current == null){
-			return false;
-		}
-		return true;
+		return this.current !== null;
    },
-   redo: function(){
+	redo: function(){
 		if (!this.canRedo()){
-			throw new Error("There is no next item");
+			throw new Error("There is no next item.");
 		}
 		this.current = this.current.next;
-		this.current.execute();
+		eval(this.current);
+		this.current.value.execute();
    },
    undo: function(){
-		if (this.current == null){
-			throw new Error("no current item to unexecute");
+		if (!this.canUndo()){
+			throw new Error("No current item to unexecute.");
 		}
-		this.current.unexecute();
+		this.current.value.unexecute();
 		this.current = this.current.prev;
    },
    undoableIterator: function(){
-		var it = this.current.next;
-		return Iterator.new(
-				function(){
-					it = it.prev;
-					return it;
-				},
-				function(){
-					return it.prev !== null;
-				}
-			);
+   	return this.list.reverseIterateFrom(this.current);
 	},
    redoableIterator: function(){
-		var it = this.current.prev;
-		return Iterator.new(
-			function(){
-				it = it.next;
-				return it;
-			},
-			function(){
-				return it.next !== null;
-			}
-			);
+   	return this.list.iterateFrom(this.current);
 	}
-
 };
 
 
