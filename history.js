@@ -4,10 +4,10 @@
  * Contains implementation for a CmdHistory "class"
  */
 
-var Iterator, DLList, CmdHistory, proto;
+var DLList, CmdHistory, proto;
 
 DLList = require("./dllist");
-Iterator = require("./iterator.js");
+
 
 /*
  *       Constructors
@@ -29,12 +29,11 @@ proto = {
    // Add instance methods here
 	add: function(command){
 		var item;
-
-		item = this.list.insertAt(command, this.current !== null ? this.current : this.list.sentinel);		
-   		this.current = item;
-   		this.list.endAt(this.current);
-   		eval(this.current);
-   		this.current.value.execute();
+		item = this.list.insertAt(command, this.current !== null ? this.current : this.list.sentinel);
+			this.current = item;
+			this.list.endAt(this.current);
+			eval(this.current);
+			this.current.value.execute();
    },
 	canRedo: function(){
 		return this.current.next !== this.list.sentinel;
@@ -58,10 +57,10 @@ proto = {
 		this.current = this.current.prev;
    },
    undoableIterator: function(){
-   	return this.list.reverseIterateFrom(this.current);
+	return this.list.reverseIterateFrom(this.current);
 	},
    redoableIterator: function(){
-   	return this.list.iterateFrom(this.current);
+	return this.list.iterateFrom(this.current);
 	}
 };
 
