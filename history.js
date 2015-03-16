@@ -32,7 +32,6 @@ proto = {
 		item = this.list.insertAt(command, this.current !== null ? this.current : this.list.sentinel);
 			this.current = item;
 			this.list.endAt(this.current);
-			eval(this.current);
 			this.current.value.execute();
    },
 	canRedo: function(){
@@ -46,7 +45,6 @@ proto = {
 			throw new Error("There is no next item.");
 		}
 		this.current = this.current.next;
-		eval(this.current);
 		this.current.value.execute();
    },
    undo: function(){
